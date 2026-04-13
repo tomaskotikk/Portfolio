@@ -84,8 +84,22 @@ export const projects = [
     status: "Deployed",
     color: "#0066FF",
   },
+  
   {
     id: 2,
+    title: "Žabčíková - Učetnictví",
+    description: "Oficiální web Žabčíková - Účetnictví přímo ve Zlíně. Moderní responzivní jednoduchý design s respozivním řešením.",
+    extendedDescription: "Klientska realizace postavena na ciste prezentaci sluzeb, snadne orientaci navstevnika a plynulem mobilnim zazitku.",
+    tags: ["Zakazka", "Responsive", "Rezervace"],
+    category: "client",
+    image: "/Images/ucetnictvi.png",
+    liveUrl: "https://zabcikova.cz/",
+    detailUrl: "#",
+    status: "Deployed",
+    color: "#10B981",
+  },
+  {
+    id: 3,
     title: "Kostkopark",
     description: "Oficiální web dětské herny ve Zlíně s moderním responzivním designem a rezervačním systémem.",
     extendedDescription: "Klientska realizace postavena na ciste prezentaci sluzeb, snadne orientaci navstevnika a plynulem mobilnim zazitku.",
@@ -98,7 +112,7 @@ export const projects = [
     color: "#10B981",
   },
   {
-    id: 3,
+    id: 4,
     title: "Rugby Kemp",
     description: "Oficialni web letniho rugby kempu s informacemi, prihlaskou a galerii.",
     extendedDescription: "Zakazkovy web orientovany na rychly pristup k informacim, jednoduchou registraci a bezproblemove fungovani na mobilu i desktopu.",
@@ -111,7 +125,7 @@ export const projects = [
     color: "#0EA5E9",
   },
   {
-    id: 4,
+    id: 5,
     title: "Aplikace SHARE IT",
     description: "Webova aplikace pro spravu a sdileni predplatnych s rolemi uzivatelu.",
     extendedDescription: "Skolni full-stack projekt zamereny na databazovou logiku, uzivatelske role a prakticky workflow pro sdileni predplatnych sluzeb.",
@@ -124,7 +138,7 @@ export const projects = [
     color: "#6366F1",
   },
   {
-    id: 5,
+    id: 6,
     title: "3D Hra - Tulen",
     description: "Klauzurni multiplayer hra pro 2 hrace na tema nahodneho slova Tulen.",
     extendedDescription: "Skolni 3D projekt s durazem na herni mechaniku, logiku multiplayeru a celkovy zazitek ze souboje dvou hracu.",
@@ -137,7 +151,7 @@ export const projects = [
     color: "#8B5CF6",
   },
   {
-    id: 6,
+    id: 7,
     title: "Impostor Game",
     description: "Prohlizecova zabavna hra s prateli, kde hledate impostora.",
     extendedDescription: "Zabavna socialni hra do prohlizece se sadou tematickych kategorii. Dural se na jednoduchost ovladani a rychly start hry.",
@@ -150,7 +164,7 @@ export const projects = [
     color: "#F59E0B",
   },
   {
-    id: 7,
+    id: 8,
     title: "QR Platba Generator",
     description: "Web pro generovani QR plateb pro osobni ucet.",
     extendedDescription: "Nastroj pro rychle vytvoreni QR plateb kompatibilnich s ceskymi bankami, s jednoduchym a rychlym formularovym postupem.",
@@ -163,7 +177,7 @@ export const projects = [
     color: "#14B8A6",
   },
   {
-    id: 8,
+    id: 9,
     title: "Objective Tennis Counter",
     description: "Program pro pocitani skore v tenise s konzolovym rozhranim.",
     extendedDescription: "Skolni aplikace zamerena na logiku bodovani, stav zapasu a prehledny vypis aktualniho stavu hry.",
@@ -176,7 +190,7 @@ export const projects = [
     color: "#3B82F6",
   },
   {
-    id: 9,
+    id: 10,
     title: "Java Bank System",
     description: "Program simulujici funkce banky: vybery, vklady, kontokorent a uver.",
     extendedDescription: "Skolni projekt s bankovni logikou, validacemi vstupu a jednoduse ovladatelnym konzolovym rozhranim.",
@@ -189,7 +203,7 @@ export const projects = [
     color: "#2563EB",
   },
   {
-    id: 10,
+    id: 11,
     title: "Hunger Games 2D",
     description: "Pixelova 2D hra inspirovana Hunger Games, klauzurni prace.",
     extendedDescription: "Herni projekt zamereny na arenu preziti, plynule ovladani a stylizovane 2D zpracovani.",
@@ -202,7 +216,7 @@ export const projects = [
     color: "#EF4444",
   },
   {
-    id: 11,
+    id: 12,
     title: "Discord Login",
     description: "Moderni prihlasovaci stranka inspirovana Discordem s animacemi.",
     extendedDescription: "Cvicny frontend projekt orientovany na cisty vizual, responzivitu a jemne animacni efekty.",
@@ -215,7 +229,7 @@ export const projects = [
     color: "#7C3AED",
   },
   {
-    id: 12,
+    id: 13,
     title: "State API",
     description: "Projekt vyuzivajici API pro informace o statech sveta.",
     extendedDescription: "Skolni projekt s REST API a databazovym backendem zamereny na nacitani, zpracovani a zobrazeni dat.",
@@ -228,7 +242,7 @@ export const projects = [
     color: "#06B6D4",
   },
   {
-    id: 13,
+    id: 14,
     title: "Typing Effect",
     description: "Animovany efekt psani textu v JavaScriptu pro webove stranky.",
     extendedDescription: "Maly cvicny projekt s fokusen na plynulou animaci, casovani a snadnou implementaci do libovolneho webu.",
@@ -241,7 +255,7 @@ export const projects = [
     color: "#22C55E",
   },
   {
-    id: 14,
+    id: 15,
     title: "SQLite Application",
     description: "Databazova aplikace ve SQLite s CRUD operacemi.",
     extendedDescription: "Skolni konzolova aplikace zamerena na spravu dat, validace vstupu a zakladni databazove operace.",
