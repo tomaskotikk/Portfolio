@@ -68,18 +68,11 @@ const FacebookIcon = () => (
   </svg>
 );
 
-const TelegramIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zM17.65 8.232l-1.933 9.112c-.145.64-.523.798-1.06.498L11.7 15.58l-1.42 1.368c-.157.157-.289.289-.59.289l.21-2.981L15.33 9.531c.236-.21-.051-.327-.367-.116l-6.71 4.225-2.89-.904c-.628-.196-.64-.628.13-.928l11.31-4.359c.523-.196.981.116.847.783z" />
-  </svg>
-);
-
 const socialLinks = [
   { Icon: GithubIcon, href: personal.links.github, label: 'GitHub' },
   { Icon: LinkedinIcon, href: personal.links.linkedin, label: 'LinkedIn' },
   { Icon: FacebookIcon, href: personal.links.facebook, label: 'Facebook' },
   { Icon: InstagramIcon, href: personal.links.instagram, label: 'Instagram' },
-  { Icon: TelegramIcon, href: personal.links.telegram, label: 'Telegram' },
 ];
 
 // â”€â”€ 3D Code Panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

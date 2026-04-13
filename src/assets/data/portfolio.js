@@ -15,10 +15,9 @@ export const personal = {
   avatar: "/Images/img.png",
   links: {
     github: "https://github.com/tomaskotikk",
-    linkedin: "https://tomaskotik.cz",
-    facebook: "https://tomaskotik.cz",
-    instagram: "https://tomaskotik.cz",
-    telegram: "https://tomaskotik.cz",
+    linkedin: "https://www.linkedin.com/in/tom%C3%A1%C5%A1-kot%C3%ADk-5a4b493aa/",
+    facebook: "https://www.facebook.com/tomas.kotik.35/",
+    instagram: "https://www.instagram.com/tomas.kotikk/",
   },
 };
 
