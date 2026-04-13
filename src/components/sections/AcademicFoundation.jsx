@@ -14,7 +14,7 @@ const iconMap = {
   activity: Activity,
 };
 
-const TimelineItem = ({ item, index }) => {
+const TimelineItem = ({ item, index, language = 'cs', labels }) => {
   const itemRef = useRef(null);
   const Icon = iconMap[item.icon] || Award;
   const isRight = index % 2 !== 0;
@@ -92,23 +92,23 @@ const TimelineItem = ({ item, index }) => {
           >
             <Icon size={20} />
           </motion.div>
-          <span className="timeline-year-badge">{item.year}</span>
+          <span className="timeline-year-badge">{item.year?.[language] || item.year}</span>
         </div>
 
-        <h3 className="timeline-title">{item.title}</h3>
-        <span className="timeline-focus">{item.focus}</span>
+        <h3 className="timeline-title">{item.title?.[language] || item.title}</h3>
+        <span className="timeline-focus">{item.focus?.[language] || item.focus}</span>
 
         <div className="timeline-body">
           {item.concepts && (
             <div className="timeline-info-group">
-              <span className="info-label">Klíčové koncepty</span>
-              <p className="info-value">{item.concepts.join(', ')}</p>
+              <span className="info-label">{labels.concepts}</span>
+              <p className="info-value">{(item.concepts?.[language] || item.concepts).join(', ')}</p>
             </div>
           )}
 
           {item.stack && (
             <div className="timeline-info-group">
-              <span className="info-label">Použité technologie</span>
+              <span className="info-label">{labels.tech}</span>
               <div className="stack-tags">
                 {item.stack.map(tech => (
                   <motion.span 
@@ -125,29 +125,29 @@ const TimelineItem = ({ item, index }) => {
 
           {item.project && (
             <div className="timeline-info-group">
-              <span className="info-label">Hlavní projekt</span>
-              <p className="info-value">{item.project}</p>
+              <span className="info-label">{labels.project}</span>
+              <p className="info-value">{item.project?.[language] || item.project}</p>
             </div>
           )}
 
           {item.internship && (
             <div className="timeline-info-group">
-              <span className="info-label">Praxe</span>
-              <p className="info-value">{item.internship}</p>
+              <span className="info-label">{labels.internship}</span>
+              <p className="info-value">{item.internship?.[language] || item.internship}</p>
             </div>
           )}
 
           {item.deepDives && (
             <div className="timeline-info-group">
-              <span className="info-label">Aktuální fokus</span>
-              <p className="info-value">{item.deepDives.join(', ')}</p>
+              <span className="info-label">{labels.focus}</span>
+              <p className="info-value">{(item.deepDives?.[language] || item.deepDives).join(', ')}</p>
             </div>
           )}
 
           {item.goal && (
             <div className="timeline-info-group">
-              <span className="info-label">Hlavní cíl</span>
-              <p className="info-value">{item.goal}</p>
+              <span className="info-label">{labels.goal}</span>
+              <p className="info-value">{item.goal?.[language] || item.goal}</p>
             </div>
           )}
 
@@ -157,7 +157,7 @@ const TimelineItem = ({ item, index }) => {
               animate={{ opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              {item.status}
+              {item.status?.[language] || item.status}
             </motion.span>
           )}
         </div>
@@ -166,8 +166,42 @@ const TimelineItem = ({ item, index }) => {
   );
 };
 
-const AcademicFoundation = () => {
+const AcademicFoundation = ({ language = 'cs' }) => {
   const sectionRef = useRef(null);
+  const labels = {
+    cs: {
+      title: 'Studium',
+      highlight: 'a růst',
+      subtitle: 'Vzdělání, projekty a technický progres',
+      concepts: 'Klíčové koncepty',
+      tech: 'Použité technologie',
+      project: 'Hlavní projekt',
+      internship: 'Praxe',
+      focus: 'Aktuální fokus',
+      goal: 'Hlavní cíl',
+    },
+    en: {
+      title: 'Study',
+      highlight: 'and growth',
+      subtitle: 'Education, projects, and technical progress',
+      concepts: 'Key concepts',
+      tech: 'Technologies used',
+      project: 'Main project',
+      internship: 'Internship',
+      focus: 'Current focus',
+      goal: 'Main goal',
+    },
+  }[language] || {
+    title: 'Studium',
+    highlight: 'a růst',
+    subtitle: 'Vzdělání, projekty a technický progres',
+    concepts: 'Klíčové koncepty',
+    tech: 'Použité technologie',
+    project: 'Hlavní projekt',
+    internship: 'Praxe',
+    focus: 'Aktuální fokus',
+    goal: 'Hlavní cíl',
+  };
   
   // Fluid Parallax Shrink for the whole section
   const { y, scale } = useFluidParallax(sectionRef, {
@@ -191,9 +225,9 @@ const AcademicFoundation = () => {
     <section id="academic" className="academic-section" ref={sectionRef}>
       <motion.div className="academic-container" style={{ y, scale }}>
         <SectionTitle
-          title="Studium"
-          highlight="a růst"
-          subtitle="Vzdělání, projekty a technický progres"
+          title={labels.title}
+          highlight={labels.highlight}
+          subtitle={labels.subtitle}
           center
           withGlow
         />
@@ -205,10 +239,10 @@ const AcademicFoundation = () => {
           whileInView="visible"
           viewport={{ once: false }}
         >
-          <h2 className="academic-degree">{academic.degree}</h2>
-          <h3 className="academic-major">{academic.major}</h3>
-          <p className="academic-institution">{academic.institution}</p>
-          <p className="academic-period">{academic.period}</p>
+          <h2 className="academic-degree">{academic.degree[language] || academic.degree.cs}</h2>
+          <h3 className="academic-major">{academic.major[language] || academic.major.cs}</h3>
+          <p className="academic-institution">{academic.institution[language] || academic.institution.cs}</p>
+          <p className="academic-period">{academic.period[language] || academic.period.cs}</p>
         </motion.div>
 
         <div className="timeline-wrapper">
@@ -223,6 +257,8 @@ const AcademicFoundation = () => {
                 key={item.id} 
                 item={item} 
                 index={index} 
+                language={language}
+                labels={labels}
               />
             ))}
           </div>

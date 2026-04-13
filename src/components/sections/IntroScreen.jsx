@@ -31,7 +31,7 @@ const TypeWriter = ({ text, start }) => {
   );
 };
 
-const IntroScreen = ({ onComplete }) => {
+const IntroScreen = ({ onComplete, language = 'cs' }) => {
   const [phase, setPhase] = useState('enter'); // enter → reveal → typing → exit
 
   useEffect(() => {
@@ -47,13 +47,21 @@ const IntroScreen = ({ onComplete }) => {
     };
   }, [onComplete]);
 
-  const words = [
-    { text: "VÍTEJ", highlight: false },
-    { text: "NA", highlight: false },
-    { text: "MÉM", highlight: false },
-    { text: "PORTFOLIU", highlight: true },
-    { text: "WEBU", highlight: true }
-  ];
+  const words = language === 'en'
+    ? [
+      { text: 'WELCOME', highlight: false },
+      { text: 'TO', highlight: false },
+      { text: 'MY', highlight: false },
+      { text: 'PORTFOLIO', highlight: true },
+      { text: 'WEBSITE', highlight: true },
+    ]
+    : [
+      { text: 'VÍTEJ', highlight: false },
+      { text: 'NA', highlight: false },
+      { text: 'MÉM', highlight: false },
+      { text: 'PORTFOLIU', highlight: true },
+      { text: 'WEBU', highlight: true },
+    ];
 
   const containerVariants = {
     hidden: { opacity: 0 },

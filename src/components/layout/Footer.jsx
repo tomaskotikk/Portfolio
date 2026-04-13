@@ -28,8 +28,31 @@ const FacebookIcon = () => (
   </svg>
 );
 
-const Footer = () => {
+const Footer = ({ language = 'cs' }) => {
   const year = new Date().getFullYear();
+  const links = navLinks[language] || navLinks.cs;
+  const text = {
+    cs: {
+      brand: 'Osobni',
+      portfolio: 'Portfolio',
+      quickLinks: 'Rychle odkazy',
+      contact: 'Kontakt',
+      rights: 'Vsechna prava vyhrazena.',
+    },
+    en: {
+      brand: 'Personal',
+      portfolio: 'Portfolio',
+      quickLinks: 'Quick links',
+      contact: 'Contact',
+      rights: 'All rights reserved.',
+    },
+  }[language] || {
+    brand: 'Osobni',
+    portfolio: 'Portfolio',
+    quickLinks: 'Rychle odkazy',
+    contact: 'Kontakt',
+    rights: 'Vsechna prava vyhrazena.',
+  };
 
   return (
     <footer className="footer">
@@ -48,7 +71,7 @@ const Footer = () => {
             <div className="footer-logo">
               <div className="footer-logo-img" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800 }}>TK</div>
               <span className="footer-logo-text">
-                Osobní<span className="footer-logo-highlight">Portfolio</span>
+                {text.brand}<span className="footer-logo-highlight">{text.portfolio}</span>
               </span>
             </div>
             <p className="footer-tagline">
@@ -57,15 +80,15 @@ const Footer = () => {
             </p>
             <div className="footer-location">
               <MapPin size={14} className="footer-icon-primary" />
-              <span>{personal.location}</span>
+              <span>{personal.location[language] || personal.location.cs}</span>
             </div>
           </div>
 
           {/* Column 2: Quick Links */}
           <div className="footer-col footer-col-links">
-            <h4 className="footer-col-title">Rychle odkazy</h4>
+            <h4 className="footer-col-title">{text.quickLinks}</h4>
             <nav className="footer-nav-vertical">
-              {navLinks.map(({ label, href }) => (
+              {links.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}
@@ -83,7 +106,7 @@ const Footer = () => {
 
           {/* Column 3: Connect & Socials */}
           <div className="footer-col footer-col-social">
-            <h4 className="footer-col-title">Kontakt</h4>
+            <h4 className="footer-col-title">{text.contact}</h4>
             <div className="footer-contact-info">
               <a href={`mailto:${personal.email}`} className="footer-contact-link">
                 <Mail size={14} className="footer-icon-primary" />
@@ -112,7 +135,7 @@ const Footer = () => {
           <div className="footer-bottom-divider" />
           <div className="footer-bottom-content">
             <p className="footer-copyright">
-              © {year} <span className="footer-name-highlight">{personal.name}</span>. Všechna práva vyhrazena.
+              © {year} <span className="footer-name-highlight">{personal.name}</span>. {text.rights}
             </p>
           </div>
         </div>

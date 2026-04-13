@@ -8,15 +8,19 @@ import { useTilt } from '../../hooks';
 import '../../styles/Hero.css';
 
 // â”€â”€ Typewriter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const WORDS = ['Webový vývojář', 'UI/UX tvůrce', 'Kreativní developer', 'Full-stack builder'];
+const WORDS = {
+  cs: ['Webový vývojář', 'UI/UX tvůrce', 'Kreativní developer', 'Full-stack builder'],
+  en: ['Web Developer', 'UI/UX Creator', 'Creative Developer', 'Full-stack Builder'],
+};
 
-const TypeWriter = () => {
+const TypeWriter = ({ language = 'cs' }) => {
   const [wordIndex, setWordIndex] = useState(0);
   const [displayed, setDisplayed] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const wordList = WORDS[language] || WORDS.cs;
 
   useEffect(() => {
-    const word = WORDS[wordIndex];
+    const word = wordList[wordIndex];
     let t;
     if (!deleting && displayed.length < word.length) {
       t = setTimeout(() => setDisplayed(word.slice(0, displayed.length + 1)), 60);
@@ -26,10 +30,10 @@ const TypeWriter = () => {
       t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
     } else {
       setDeleting(false);
-      setWordIndex((p) => (p + 1) % WORDS.length);
+      setWordIndex((p) => (p + 1) % wordList.length);
     }
     return () => clearTimeout(t);
-  }, [displayed, deleting, wordIndex]);
+  }, [displayed, deleting, wordIndex, wordList]);
 
   return (
     <span className="typewriter-container">
@@ -76,7 +80,7 @@ const socialLinks = [
 ];
 
 // â”€â”€ 3D Code Panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const CodePanel = () => {
+const CodePanel = ({ language = 'cs' }) => {
   const { tilt, onMouseMove, onMouseLeave } = useTilt(20);
 
   return (
@@ -119,11 +123,11 @@ const CodePanel = () => {
         </div>
 
         {/* Code block content */}
-        <div className="hero-code-panel-content">
-          <div><span style={{ color: '#60a5fa' }}>const</span> <span style={{ color: '#67e8f9' }}>Developer</span> <span style={{ color: 'rgba(255,255,255,0.5)' }}>= {'{'}</span></div>
-          <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>name</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7', borderBottom: '1px solid rgba(110,231,183,0.3)' }}>"Tomas Kotik"</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
-          <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>role</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7' }}>"Webový vývojář"</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
-          <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>passion</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7' }}>"Web a aplikace"</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
+          <div className="hero-code-panel-content">
+            <div><span style={{ color: '#60a5fa' }}>const</span> <span style={{ color: '#67e8f9' }}>Developer</span> <span style={{ color: 'rgba(255,255,255,0.5)' }}>= {'{'}</span></div>
+            <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>name</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7', borderBottom: '1px solid rgba(110,231,183,0.3)' }}>"Tomas Kotik"</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
+            <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>role</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7' }}>{language === 'en' ? 'Full-Stack Developer' : 'Full-Stack vývojář'}</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
+            <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>passion</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7' }}>{language === 'en' ? 'Web apps and games' : 'Webové aplikace a hry'}</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
 
           <div className="hero-code-panel-line-indent" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
             <span style={{ color: '#93c5fd', marginTop: '0.25rem' }}>skills</span><span style={{ color: 'rgba(255,255,255,0.5)', marginTop: '0.25rem' }}>: [</span>
@@ -142,7 +146,7 @@ const CodePanel = () => {
               transition={{ duration: 2, repeat: Infinity }}
               style={{ color: '#34d399', fontWeight: 500 }}
             >
-              "Vytvarim..."
+                "{language === 'en' ? 'Building...' : 'Vytvarim...'}"
             </motion.span>
           </div>
           <div><span style={{ color: 'rgba(255,255,255,0.5)' }}>{'}'}</span></div>
@@ -158,9 +162,34 @@ const CodePanel = () => {
 };
 
 // â”€â”€ Hero Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const Hero = () => {
+const Hero = ({ language = 'cs' }) => {
   const heroRef = useRef(null);
   const [isReady, setIsReady] = useState(false);
+  const text = {
+    cs: {
+      available: 'Dostupný pro projekty',
+      heading1: 'Tomáš',
+      heading2: 'Kotík',
+      bio: 'Jsem front-end i backend developer, který staví rychlé a funkční weby. Kombinuji technické znalosti s čistým designem, aby složité nápady fungovaly jednoduše.',
+      projects: 'Zobrazit projekty',
+      contact: 'Napiš mi',
+    },
+    en: {
+      available: 'Available for projects',
+      heading1: 'Tomáš',
+      heading2: 'Kotík',
+      bio: 'I am both a front-end and back-end developer building fast and functional web products. I combine technical skills with clean design so complex ideas stay simple.',
+      projects: 'View projects',
+      contact: 'Contact me',
+    },
+  }[language] || {
+    available: 'Dostupný pro projekty',
+    heading1: 'Tomáš',
+    heading2: 'Kotík',
+    bio: 'Jsem front-end i backend developer, který staví rychlé a funkční weby. Kombinuji technické znalosti s čistým designem, aby složité nápady fungovaly jednoduše.',
+    projects: 'Zobrazit projekty',
+    contact: 'Napiš mi',
+  };
 
   useEffect(() => {
     // Small delay to ensure background/grid is visible first
@@ -253,17 +282,17 @@ const Hero = () => {
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 style={{ width: '0.5rem', height: '0.5rem', borderRadius: '50%', backgroundColor: '#34d399', boxShadow: '0 0 10px rgba(52,211,153,0.8)' }}
               />
-              <span className="hero-badge-text">Dostupný pro projekty</span>
+              <span className="hero-badge-text">{text.available}</span>
             </motion.div>
 
             {/* Main Headline */}
             <motion.div variants={slowStagger}>
               <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, lineHeight: 1.05, letterSpacing: '-0.025em' }}>
                 <motion.span variants={slowSlideInLeft} className="hero-h1-first" style={{ display: 'block' }}>
-                  Webový
+                  {text.heading1}
                 </motion.span>
                 <motion.span variants={slowSlideInRight} className="hero-h1-second" style={{ display: 'block' }}>
-                  vývojář
+                  {text.heading2}
                 </motion.span>
               </h1>
             </motion.div>
@@ -273,7 +302,7 @@ const Hero = () => {
               variants={slowFadeUp}
               className="hero-typewriter-wrapper"
             >
-              <TypeWriter />
+              <TypeWriter language={language} />
             </motion.div>
 
             {/* Bio */}
@@ -281,7 +310,7 @@ const Hero = () => {
               variants={slowFadeUp}
               className="hero-bio"
             >
-              Jsem <strong className="text-white-bold">front-end developer</strong> a <strong className="text-white-bold">UI/UX designer</strong>, který staví rychlé a funkční weby. Kombinuji technické znalosti s čistým designem, aby složité nápady fungovaly jednoduše.
+              {text.bio}
             </motion.p>
 
             {/* Call to Actions */}
@@ -298,7 +327,7 @@ const Hero = () => {
               >
                 <div className="hero-btn-primary-shine" />
                 <span className="hero-btn-primary-text">
-                  Zobrazit projekty <ExternalLink size={18} />
+                  {text.projects} <ExternalLink size={18} />
                 </span>
               </motion.a>
 
@@ -308,7 +337,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.98 }}
                 className="hero-btn-secondary"
               >
-                Napiš mi <Mail size={18} />
+                {text.contact} <Mail size={18} />
               </motion.a>
             </motion.div>
 
@@ -342,7 +371,7 @@ const Hero = () => {
             animate={isReady ? "visible" : "hidden"}
             className="hero-right-col"
           >
-            <CodePanel />
+            <CodePanel language={language} />
           </motion.div>
         </div>
 

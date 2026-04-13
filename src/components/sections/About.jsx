@@ -10,7 +10,7 @@ import '../../styles/About.css';
 
 const iconMap = { code: Code2, award: Award, globe: Globe };
 
-const StatCard = ({ stat, index }) => {
+const StatCard = ({ stat, index, onNavigate }) => {
   const { tilt, onMouseMove, onMouseLeave } = useTilt(15);
   const Icon = iconMap[stat.icon] || Code2;
 
@@ -20,6 +20,15 @@ const StatCard = ({ stat, index }) => {
       custom={0.2 + index * 0.15}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
+      onClick={onNavigate}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onNavigate();
+        }
+      }}
+      role="button"
+      tabIndex={0}
       className="concept-stat-card"
       style={{
         rotateX: tilt.x,
@@ -47,7 +56,7 @@ const StatCard = ({ stat, index }) => {
   );
 };
 
-const About = () => {
+const About = ({ language = 'cs' }) => {
   const sectionRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const avatarTilt = useTilt(10); // Low intensity for a premium feel
@@ -57,12 +66,39 @@ const About = () => {
     scaleRange: [1, 0.95]
   });
 
+  const text = {
+    cs: {
+      title: 'O mně',
+      subtitle: 'Proměním nápady ve funkční digitální zážitky',
+      hello: 'Ahoj, jsem',
+      download: 'Stáhnout CV',
+      projects: 'Zobrazit projekty',
+    },
+    en: {
+      title: 'About Me',
+      subtitle: 'I turn ideas into functional digital experiences',
+      hello: 'Hi, I am',
+      download: 'Download CV',
+      projects: 'View projects',
+    },
+  }[language] || {
+    title: 'O mně',
+    subtitle: 'Proměním nápady ve funkční digitální zážitky',
+    hello: 'Ahoj, jsem',
+    download: 'Stáhnout CV',
+    projects: 'Zobrazit projekty',
+  };
+
+  const goToPortfolio = () => {
+    document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="about" className="about-section" ref={sectionRef}>
       <motion.div className="about-container" style={{ y, scale }}>
         <SectionTitle
-          title="O mně"
-          subtitle="Proměním nápady ve funkční digitální zážitky"
+          title={text.title}
+          subtitle={text.subtitle}
           withGlow
           center
         />
@@ -83,7 +119,7 @@ const About = () => {
             viewport={{ once: false, amount: 0.3 }}
           >
             <motion.h4 className="about-hello" variants={slideInLeft}>
-              Ahoj, jsem
+              {text.hello}
             </motion.h4>
             
             <motion.h2 className="about-name" variants={slideInRight}>
@@ -91,7 +127,7 @@ const About = () => {
             </motion.h2>
             
             <motion.p className="about-description" variants={slideInLeft}>
-              {personal.bio2}
+              {personal.bio2[language] || personal.bio2.cs}
             </motion.p>
             
             <motion.div className="about-buttons" variants={zoomIn}>
@@ -101,7 +137,7 @@ const About = () => {
                 whileHover={{ y: -3, boxShadow: '0 10px 20px rgba(59, 130, 246, 0.4)' }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Download size={18} /> Stáhnout CV
+                <Download size={18} /> {text.download}
               </motion.a>
               <motion.a 
                 href="#portfolio" 
@@ -113,7 +149,7 @@ const About = () => {
                   document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                <Code2 size={18} /> Zobrazit projekty
+                <Code2 size={18} /> {text.projects}
               </motion.a>
             </motion.div>
           </motion.div>
@@ -164,7 +200,16 @@ const About = () => {
           viewport={{ once: false, amount: 0.2 }}
         >
           {stats.map((stat, i) => (
-            <StatCard key={stat.label} stat={stat} index={i} />
+            <StatCard
+              key={stat.label[language] || stat.label.cs}
+              stat={{
+                ...stat,
+                label: stat.label[language] || stat.label.cs,
+                description: stat.description[language] || stat.description.cs,
+              }}
+              index={i}
+              onNavigate={goToPortfolio}
+            />
           ))}
         </motion.div>
       </motion.div>

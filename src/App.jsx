@@ -22,6 +22,7 @@ import useLenis from './hooks/useLenis';
 
 const App = () => {
   const [introComplete, setIntroComplete] = useState(false);
+  const [language, setLanguage] = useState('cs');
 
   // Initialize smooth scroll
   useLenis();
@@ -34,7 +35,10 @@ const App = () => {
       {/* Intro splash screen */}
       <AnimatePresence>
         {!introComplete && (
-          <IntroScreen onComplete={() => setIntroComplete(true)} />
+          <IntroScreen
+            language={language}
+            onComplete={() => setIntroComplete(true)}
+          />
         )}
       </AnimatePresence>
 
@@ -42,15 +46,15 @@ const App = () => {
       {introComplete && (
         <>
           <SceneBackground />
-          <Navbar />
+          <Navbar language={language} onLanguageChange={setLanguage} />
           <main>
-            <Hero />
-            <About />
-            <AcademicFoundation />
-            <Portfolio />
-            <Contact />
+            <Hero language={language} />
+            <About language={language} />
+            <AcademicFoundation language={language} />
+            <Portfolio language={language} />
+            <Contact language={language} />
           </main>
-          <Footer />
+          <Footer language={language} />
         </>
       )}
     </>

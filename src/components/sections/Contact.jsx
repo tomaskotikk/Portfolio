@@ -35,9 +35,61 @@ const socialLinks = [
   { Icon: InstagramIcon, href: personal.links.instagram, label: 'Instagram' },
 ];
 
-const Contact = () => {
+const Contact = ({ language = 'cs' }) => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState('idle');
+  const text = {
+    cs: {
+      title: 'Kontakt',
+      highlight: 'se mnou',
+      subtitle: 'Mas napad na projekt nebo se chces jen ozvat? Napis mi.',
+      heading: 'Pojdme spolupracovat',
+      desc: 'Hledam zajimave projekty. At uz potrebujes web, aplikaci nebo konzultaci, klidne se ozvi.',
+      location: 'Lokalita',
+      socials: 'Najdes me na',
+      available: 'Dostupny pro spolupraci',
+      availableDesc: 'Otevreny freelance projektum, stazim i dlouhodobe spolupraci.',
+      name: 'Tvoje jmeno',
+      email: 'E-mail',
+      subject: 'Predmet',
+      message: 'Zprava',
+      namePlaceholder: 'Jan Novak',
+      emailPlaceholder: 'jmeno@email.cz',
+      subjectPlaceholder: 'Zprava k projektu...',
+      messagePlaceholder: 'Napis mi vic o projektu...',
+      send: 'Odeslat zpravu',
+      sending: 'Odesilam...',
+      sent: 'Zprava odeslana!',
+      failAlert: 'Odeslani selhalo. Pokud je to prvni pokus, zkontroluj e-mail a potvrd FormSubmit overeni.',
+      mailSubject: 'Nova zprava z portfolia',
+      fallbackSubject: 'Kontakt',
+    },
+    en: {
+      title: 'Contact',
+      highlight: 'me',
+      subtitle: 'Do you have a project idea or just want to connect? Send me a message.',
+      heading: 'Lets work together',
+      desc: 'I am looking for interesting projects. Whether you need a website, app, or consultation, feel free to reach out.',
+      location: 'Location',
+      socials: 'Find me on',
+      available: 'Available for collaboration',
+      availableDesc: 'Open to freelance projects, internships, and long-term collaboration.',
+      name: 'Your name',
+      email: 'E-mail',
+      subject: 'Subject',
+      message: 'Message',
+      namePlaceholder: 'John Smith',
+      emailPlaceholder: 'name@email.com',
+      subjectPlaceholder: 'Project message...',
+      messagePlaceholder: 'Tell me more about your project...',
+      send: 'Send message',
+      sending: 'Sending...',
+      sent: 'Message sent!',
+      failAlert: 'Sending failed. If this is the first attempt, check your e-mail and confirm FormSubmit verification.',
+      mailSubject: 'New message from portfolio',
+      fallbackSubject: 'Contact',
+    },
+  }[language] || {};
 
   const handleChange = (e) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -54,7 +106,7 @@ const Contact = () => {
         },
         body: JSON.stringify({
           ...form,
-          _subject: `Nova zprava z portfolia: ${form.subject || 'Kontakt'}`,
+          _subject: `${text.mailSubject}: ${form.subject || text.fallbackSubject}`,
           _captcha: "false" // Set to "true" after first verification for spam protection
         }),
       });
@@ -71,7 +123,7 @@ const Contact = () => {
       }
     } catch (error) {
       console.error("Form Error:", error);
-      alert("Odeslani selhalo. Pokud je to prvni pokus, zkontroluj e-mail a potvrd FormSubmit overeni.");
+      alert(text.failAlert);
       setStatus('idle');
     }
   };
@@ -101,9 +153,9 @@ const Contact = () => {
     <section id="contact" className="contact-section" ref={sectionRef}>
       <motion.div className="contact-container" style={{ y: containerY, scale }}>
         <SectionTitle
-          title="Kontakt"
-          highlight="se mnou"
-          subtitle="Máš nápad na projekt nebo se chceš jen ozvat? Napiš mi."
+          title={text.title}
+          highlight={text.highlight}
+          subtitle={text.subtitle}
           center
           withGlow
         />
@@ -120,9 +172,9 @@ const Contact = () => {
             className="contact-left-col"
           >
             <div>
-              <h3 className="contact-header-title">Pojdme spolupracovat</h3>
+              <h3 className="contact-header-title">{text.heading}</h3>
               <p className="contact-header-desc">
-                Hledam zajimave projekty. At uz potrebujes web, aplikaci nebo konzultaci, klidne se ozvi.
+                {text.desc}
               </p>
             </div>
 
@@ -142,15 +194,15 @@ const Contact = () => {
                   <MapPin size={15} color="var(--accent)" />
                 </div>
                 <div>
-                  <p className="contact-info-label">Lokalita</p>
-                  <p className="contact-info-value">{personal.location}</p>
+                  <p className="contact-info-label">{text.location}</p>
+                  <p className="contact-info-value">{personal.location[language] || personal.location.cs}</p>
                 </div>
               </motion.div>
             </div>
 
             {/* Socials socials list */}
             <div>
-              <p className="contact-social-label">Najdes me na</p>
+              <p className="contact-social-label">{text.socials}</p>
               <div className="contact-social-list">
                 {socialLinks.map(({ Icon, href, label }) => (
                   <motion.a
@@ -176,10 +228,10 @@ const Contact = () => {
             >
               <div className="contact-avail-header">
                 <span className="contact-avail-dot animate-pulse" />
-                <span className="contact-avail-label">Dostupný pro spolupráci</span>
+                <span className="contact-avail-label">{text.available}</span>
               </div>
               <p className="contact-avail-desc">
-                Otevreny freelance projektum, stazim i dlouhodobe spolupraci.
+                {text.availableDesc}
               </p>
             </motion.div>
           </motion.div>
@@ -200,35 +252,35 @@ const Contact = () => {
             >
               <div className="contact-form-row">
                 <motion.div variants={fadeUp} custom={0.1} className="contact-input-group">
-                  <label className="contact-input-label">Tvoje jmeno</label>
+                  <label className="contact-input-label">{text.name}</label>
                   <input
                     className="contact-input"
-                    type="text" name="name" placeholder="Jan Novak"
+                    type="text" name="name" placeholder={text.namePlaceholder}
                     value={form.name} onChange={handleChange} required
                   />
                 </motion.div>
                 <motion.div variants={fadeUp} custom={0.2} className="contact-input-group">
-                  <label className="contact-input-label">E-mail</label>
+                  <label className="contact-input-label">{text.email}</label>
                   <input
                     className="contact-input"
-                    type="email" name="email" placeholder="jmeno@email.cz"
+                    type="email" name="email" placeholder={text.emailPlaceholder}
                     value={form.email} onChange={handleChange} required
                   />
                 </motion.div>
               </div>
               <motion.div variants={fadeUp} custom={0.3} className="contact-input-group">
-                <label className="contact-input-label">Predmet</label>
+                <label className="contact-input-label">{text.subject}</label>
                 <input
                   className="contact-input"
-                  type="text" name="subject" placeholder="Zprava k projektu..."
+                  type="text" name="subject" placeholder={text.subjectPlaceholder}
                   value={form.subject} onChange={handleChange}
                 />
               </motion.div>
               <motion.div variants={fadeUp} custom={0.4} className="contact-input-group">
-                <label className="contact-input-label">Zprava</label>
+                <label className="contact-input-label">{text.message}</label>
                 <textarea
                   className="contact-input contact-textarea"
-                  name="message" placeholder="Napiš mi víc o projektu..."
+                  name="message" placeholder={text.messagePlaceholder}
                   value={form.message} onChange={handleChange} required
                 />
               </motion.div>
@@ -248,9 +300,9 @@ const Contact = () => {
                   boxShadow: status === 'idle' ? '0 10px 30px rgba(0,102,255,0.25)' : 'none',
                 }}
               >
-                {status === 'idle' && <><Send size={15} /> Odeslat zpravu</>}
-                {status === 'sending' && <><Loader2 size={15} className="animate-spin" /> Odesilam...</>}
-                {status === 'sent' && <><CheckCircle2 size={15} /> Zprava odeslana!</>}
+                {status === 'idle' && <><Send size={15} /> {text.send}</>}
+                {status === 'sending' && <><Loader2 size={15} className="animate-spin" /> {text.sending}</>}
+                {status === 'sent' && <><CheckCircle2 size={15} /> {text.sent}</>}
               </motion.button>
             </motion.form>
           </motion.div>

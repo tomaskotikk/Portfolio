@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Code2, Layers, ExternalLink, ArrowRight, X } from 'lucide-react';
 import { projects, techStack } from '../../assets/data/portfolio';
@@ -7,22 +7,13 @@ import { staggerContainer, useFluidParallax, zoomIn, slideInDown } from '../../u
 import { useMobile } from '../../hooks';
 import '../../styles/Portfolio.css';
 
-const TABS = [
-  { id: 'projects', label: 'Projekty', Icon: Code2 },
-  { id: 'techstack', label: 'Technologie', Icon: Layers },
-];
-
-const CATEGORY_FILTERS = [
-  { id: 'all', label: 'Vse' },
-  { id: 'school', label: 'Skola' },
-  { id: 'client', label: 'Zakazky' },
-  { id: 'fun', label: 'Pro zabavu' },
-];
-
-const statusLabel = (status) => (status === 'Deployed' ? 'Nasazeno' : 'Ve vyvoji');
+const statusLabel = (status, language) => {
+  if (language === 'en') return status === 'Deployed' ? 'Deployed' : 'In progress';
+  return status === 'Deployed' ? 'Nasazeno' : 'Ve vyvoji';
+};
 
 // ── Project Modal ──────────────────────────────────────────────
-const ProjectModal = ({ project, onClose }) => {
+const ProjectModal = ({ project, onClose, language = 'cs', text }) => {
   if (!project) return null;
 
   return (
@@ -54,12 +45,12 @@ const ProjectModal = ({ project, onClose }) => {
             className="project-modal-intro-bar"
           >
             <div className="intro-bar-left">
-              <span className="intro-meta-label">Projekt c.</span>
+              <span className="intro-meta-label">{text.projectNo}</span>
               <span className="intro-meta-value">{String(project.id).padStart(3, '0')}</span>
               <div className="intro-meta-divider" />
-              <span className="intro-meta-label">Stav</span>
+              <span className="intro-meta-label">{text.status}</span>
               <span className={`project-status-dot dot-${project.status.replace('-', '')}`} />
-              <span className="intro-meta-value">{statusLabel(project.status)}</span>
+              <span className="intro-meta-value">{statusLabel(project.status, language)}</span>
             </div>
           </motion.div>
 
@@ -103,23 +94,23 @@ const ProjectModal = ({ project, onClose }) => {
           >
             <div className="narrative-grid">
               <div className="narrative-main-col">
-                <h4 className="narrative-subtitle">Shrnuti projektu</h4>
-                <p className="narrative-desc-lead">{project.description}</p>
-                <p className="narrative-desc-full">{project.extendedDescription}</p>
+                <h4 className="narrative-subtitle">{text.summary}</h4>
+                <p className="narrative-desc-lead">{project.description?.[language] || project.description}</p>
+                <p className="narrative-desc-full">{project.extendedDescription?.[language] || project.extendedDescription}</p>
               </div>
 
               <div className="narrative-specs-col">
                 <div className="specs-elite-grid">
                   <div className="elite-spec">
-                    <span className="spec-elite-label">Hlavni fokus</span>
+                    <span className="spec-elite-label">{text.mainFocus}</span>
                     <p className="spec-elite-value">{project.tags[0]}</p>
                   </div>
                   <div className="elite-spec">
-                    <span className="spec-elite-label">Stav realizace</span>
-                    <p className="spec-elite-value">{project.status === 'Deployed' ? 'Dokonceno a online' : 'Ve vyvoji'}</p>
+                    <span className="spec-elite-label">{text.implementation}</span>
+                    <p className="spec-elite-value">{project.status === 'Deployed' ? text.doneOnline : text.inDevelopment}</p>
                   </div>
                   <div className="elite-spec">
-                    <span className="spec-elite-label">Autor projektu</span>
+                    <span className="spec-elite-label">{text.author}</span>
                     <p className="spec-elite-value">Tomas Kotik</p>
                   </div>
                 </div>
@@ -127,11 +118,11 @@ const ProjectModal = ({ project, onClose }) => {
                 <div className="narrative-actions-elite">
                   {project.status === 'Deployed' && (
                     <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="elite-action-btn primary">
-                      <ExternalLink size={16} /> Otevrit projekt
+                      <ExternalLink size={16} /> {text.openProject}
                     </a>
                   )}
                   <button className="elite-action-btn secondary" onClick={onClose}>
-                    Zavrit detail
+                    {text.closeDetail}
                   </button>
                 </div>
               </div>
@@ -144,7 +135,7 @@ const ProjectModal = ({ project, onClose }) => {
 };
 
 // ── Project Card ─────────────────────────────────────────────
-const ProjectCard = ({ project, index, onOpen }) => {
+const ProjectCard = ({ project, index, onOpen, language = 'cs', text }) => {
   const cardRef = useRef(null);
   const isMobile = useMobile();
   
@@ -200,7 +191,7 @@ const ProjectCard = ({ project, index, onOpen }) => {
         {/* Status Badge */}
         <div className="project-status-badges">
           <span className={`project-status-badge status-${project.status.toLowerCase()}`}>
-            {project.status === "Deployed" ? "● Nasazeno" : "○ Vyvoj"}
+            {project.status === 'Deployed' ? text.deployedBadge : text.devBadge}
           </span>
         </div>
 
@@ -214,7 +205,7 @@ const ProjectCard = ({ project, index, onOpen }) => {
       <div className="project-card-body">
         <h3 className="project-card-title">{project.title}</h3>
         <p className="project-card-desc">
-          {project.description}
+          {project.description?.[language] || project.description}
         </p>
 
         <div className="project-card-actions">
@@ -225,7 +216,7 @@ const ProjectCard = ({ project, index, onOpen }) => {
               rel="noopener noreferrer"
               className="project-card-link-primary"
             >
-              <ExternalLink size={12} /> Odkaz
+              <ExternalLink size={12} /> {text.link}
             </a>
           )}
           <button
@@ -233,7 +224,7 @@ const ProjectCard = ({ project, index, onOpen }) => {
             className="project-card-link-secondary"
             style={{ border: 'none', background: 'none', cursor: 'pointer', padding: 0 }}
           >
-            Detail <ArrowRight size={12} />
+            {text.detail} <ArrowRight size={12} />
           </button>
         </div>
       </div>
@@ -338,11 +329,98 @@ const TechCard = ({ tech, index }) => {
 };
 
 // ── Portfolio ────────────────────────────────────────────────
-const Portfolio = () => {
+const Portfolio = ({ language = 'cs' }) => {
   const [activeTab, setActiveTab] = useState('projects');
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeProject, setActiveProject] = useState(null);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (activeProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [activeProject]);
+
+  const text = {
+    cs: {
+      title: 'Portfolio',
+      highlight: 'Projekty',
+      subtitle: 'Vyber projektu ze skoly, zakazek i vlastni tvorby. Kazdy ukazuje cast meho vyvoje a praktickych zkusenosti.',
+      projectNo: 'Projekt c.',
+      status: 'Stav',
+      summary: 'Shrnuti projektu',
+      mainFocus: 'Hlavni fokus',
+      implementation: 'Stav realizace',
+      doneOnline: 'Dokonceno a online',
+      inDevelopment: 'Ve vyvoji',
+      author: 'Autor projektu',
+      openProject: 'Otevrit projekt',
+      closeDetail: 'Zavrit detail',
+      deployedBadge: '● Nasazeno',
+      devBadge: '○ Vyvoj',
+      link: 'Odkaz',
+      detail: 'Detail',
+      tabs: [
+        { id: 'projects', label: 'Projekty', Icon: Code2 },
+        { id: 'techstack', label: 'Technologie', Icon: Layers },
+      ],
+      filters: [
+        { id: 'all', label: 'Vse' },
+        { id: 'school', label: 'Skola' },
+        { id: 'client', label: 'Zakazky' },
+        { id: 'fun', label: 'Pro zabavu' },
+      ],
+    },
+    en: {
+      title: 'Portfolio',
+      highlight: 'Projects',
+      subtitle: 'A selection of school, client, and personal projects. Each one shows part of my growth and practical experience.',
+      projectNo: 'Project No.',
+      status: 'Status',
+      summary: 'Project summary',
+      mainFocus: 'Main focus',
+      implementation: 'Implementation status',
+      doneOnline: 'Completed and live',
+      inDevelopment: 'In development',
+      author: 'Project author',
+      openProject: 'Open project',
+      closeDetail: 'Close detail',
+      deployedBadge: '● Deployed',
+      devBadge: '○ Developing',
+      link: 'Link',
+      detail: 'Detail',
+      tabs: [
+        { id: 'projects', label: 'Projects', Icon: Code2 },
+        { id: 'techstack', label: 'Technologies', Icon: Layers },
+      ],
+      filters: [
+        { id: 'all', label: 'All' },
+        { id: 'school', label: 'School' },
+        { id: 'client', label: 'Clients' },
+        { id: 'fun', label: 'Fun' },
+      ],
+    },
+  }[language] || {
+    title: 'Portfolio',
+    highlight: 'Projekty',
+    subtitle: 'Vyber projektu ze skoly, zakazek i vlastni tvorby. Kazdy ukazuje cast meho vyvoje a praktickych zkusenosti.',
+    tabs: [
+      { id: 'projects', label: 'Projekty', Icon: Code2 },
+      { id: 'techstack', label: 'Technologie', Icon: Layers },
+    ],
+    filters: [
+      { id: 'all', label: 'Vse' },
+      { id: 'school', label: 'Skola' },
+      { id: 'client', label: 'Zakazky' },
+      { id: 'fun', label: 'Pro zabavu' },
+    ],
+  };
 
   const filteredProjects = activeCategory === 'all'
     ? projects
@@ -358,9 +436,9 @@ const Portfolio = () => {
     <section id="portfolio" className="portfolio-section" ref={sectionRef}>
       <motion.div className="portfolio-container" style={{ y: containerY, scale }}>
         <SectionTitle
-          title="Portfolio"
-          highlight="Projekty"
-          subtitle="Výběr projektů ze školy, zakázek i vlastní tvorby. Každý ukazuje část mého vývoje a praktických zkušeností."
+          title={text.title}
+          highlight={text.highlight}
+          subtitle={text.subtitle}
           center
           withGlow
         />
@@ -368,7 +446,7 @@ const Portfolio = () => {
         {/* Enhanced Tab bar (Sub-Navbar) */}
         <div className="portfolio-tabs-nav">
           <div className="portfolio-tabs-container">
-            {TABS.map(({ id, label, Icon }) => {
+            {text.tabs.map(({ id, label, Icon }) => {
               const isActive = activeTab === id;
               return (
                 <button
@@ -406,7 +484,7 @@ const Portfolio = () => {
                 className="portfolio-projects-grid"
               >
                 <div className="portfolio-tabs-container" style={{ marginBottom: '1.2rem', gridColumn: '1 / -1' }}>
-                  {CATEGORY_FILTERS.map((filter) => (
+                  {text.filters.map((filter) => (
                     <button
                       key={filter.id}
                       onClick={() => setActiveCategory(filter.id)}
@@ -418,7 +496,7 @@ const Portfolio = () => {
                 </div>
 
                 {filteredProjects.map((project, i) => (
-                  <ProjectCard key={project.id} project={project} index={i} onOpen={setActiveProject} />
+                  <ProjectCard key={project.id} project={project} index={i} onOpen={setActiveProject} language={language} text={text} />
                 ))}
               </motion.div>
             )}
@@ -433,10 +511,10 @@ const Portfolio = () => {
                 className="tech-stack-organized"
               >
                 {techStack.map((group) => (
-                  <div key={group.category} className="tech-category-section-elite">
+                  <div key={group.category?.en || group.category} className="tech-category-section-elite">
                     <div className="tech-category-header-centered">
                       <div className="tech-category-separator" />
-                      <h3 className="tech-category-title-elite">{group.category}</h3>
+                      <h3 className="tech-category-title-elite">{group.category?.[language] || group.category}</h3>
                       <div className="tech-category-separator" />
                     </div>
                     <div className="portfolio-tech-grid-elite">
@@ -458,6 +536,8 @@ const Portfolio = () => {
           <ProjectModal
             project={activeProject}
             onClose={() => setActiveProject(null)}
+            language={language}
+            text={text}
           />
         )}
       </AnimatePresence>

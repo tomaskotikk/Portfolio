@@ -19,10 +19,37 @@ const InstagramIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
 );
 
-const Navbar = () => {
+const Navbar = ({ language = 'cs', onLanguageChange }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const activeSection = useActiveSection(['home', 'about', 'academic', 'portfolio', 'contact']);
+  const links = navLinks[language] || navLinks.cs;
+  const text = {
+    cs: {
+      nav: 'NAVIGACE',
+      back: 'Zpet na web',
+      available: 'Dostupny',
+      availableProjects: 'Dostupny pro projekty',
+      toggleMenu: 'Prepnout menu',
+    },
+    en: {
+      nav: 'NAVIGATION',
+      back: 'Back to website',
+      available: 'Available',
+      availableProjects: 'Available for projects',
+      toggleMenu: 'Toggle menu',
+    },
+  }[language] || {
+    nav: 'NAVIGACE',
+    back: 'Zpet na web',
+    available: 'Dostupny',
+    availableProjects: 'Dostupny pro projekty',
+    toggleMenu: 'Prepnout menu',
+  };
+
+  const changeLanguage = (next) => {
+    onLanguageChange?.(next);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -69,7 +96,7 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <nav className="navbar-desktop-nav">
-            {navLinks.map((link) => {
+            {links.map((link) => {
               const sectionId = link.href.replace('#', '');
               const isActive = activeSection === sectionId;
               return (
@@ -96,6 +123,23 @@ const Navbar = () => {
 
           {/* Right Section */}
           <div className="navbar-actions">
+            <div className="navbar-lang-switch" aria-label="Language switch">
+              <button
+                type="button"
+                onClick={() => changeLanguage('cs')}
+                className={`navbar-lang-btn ${language === 'cs' ? 'active' : ''}`}
+              >
+                CZ
+              </button>
+              <button
+                type="button"
+                onClick={() => changeLanguage('en')}
+                className={`navbar-lang-btn ${language === 'en' ? 'active' : ''}`}
+              >
+                EN
+              </button>
+            </div>
+
             {/* CTA */}
             <motion.a
               href={`mailto:${personal.email}`}
@@ -105,14 +149,14 @@ const Navbar = () => {
             >
               <div className="navbar-cta-shine" />
               <span className="navbar-cta-dot" />
-              <span className="navbar-cta-text">Dostupný</span>
+              <span className="navbar-cta-text">{text.available}</span>
             </motion.a>
 
             {/* Mobile hamburger */}
             <button
               className="navbar-mobile-toggle"
               onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
+              aria-label={text.toggleMenu}
             >
               <AnimatePresence mode="wait">
                 {menuOpen
@@ -145,12 +189,12 @@ const Navbar = () => {
                 transition={{ delay: 0.1, duration: 0.8 }}
                 className="mobile-menu-header-centered"
               >
-                <span className="mobile-menu-label-architect">NAVIGACE</span>
+                <span className="mobile-menu-label-architect">{text.nav}</span>
                 <div className="label-dots" />
               </motion.div>
 
               <nav className="mobile-menu-nav-centered">
-                {navLinks.map((link, index) => {
+                {links.map((link, index) => {
                   const isActive = activeSection === link.href.replace('#', '');
                   return (
                     <motion.a
@@ -185,7 +229,7 @@ const Navbar = () => {
                   className="mobile-menu-back-btn"
                 >
                   <ArrowLeft size={16} />
-                  <span>Zpět na web</span>
+                  <span>{text.back}</span>
                 </motion.button>
               </nav>
 
@@ -210,7 +254,7 @@ const Navbar = () => {
                   className="mobile-actions-hub-vertical"
                 >
                   <a href={`mailto:${personal.email}`} className="hub-action-btn-hire-full btn-shimmer-lite">
-                    <span>Dostupný pro projekty</span>
+                    <span>{text.availableProjects}</span>
                   </a>
                 </motion.div>
               </div>
