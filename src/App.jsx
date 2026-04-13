@@ -15,7 +15,6 @@ import Contact from './components/sections/Contact';
 import SceneBackground from './components/ui/SceneBackground';
 
 // UI
-import CustomCursor from './components/ui/CustomCursor';
 import ScrollProgress from './components/ui/ScrollProgress';
 
 // Hooks
@@ -29,9 +28,6 @@ const App = () => {
 
   return (
     <>
-      {/* Custom cursor */}
-      <CustomCursor />
-
       {/* Scroll progress bar */}
       <ScrollProgress />
 

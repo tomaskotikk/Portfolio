@@ -53,7 +53,6 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   overflow-x: hidden;
-  cursor: none;
   max-width: 100vw;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -141,48 +140,6 @@ button {
 ::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 2px;
-}
-
-/* ── Custom Cursor ──────────────────────────────────────── */
-.cursor-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 999999;
-  mix-blend-mode: screen;
-  transition: transform 0.08s ease;
-}
-
-.cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(0, 102, 255, 0.5);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 999998;
-  transition: transform 0.14s ease, width 0.2s, height 0.2s, border-color 0.2s;
-}
-
-.cursor-ring.hovered {
-  width: 56px;
-  height: 56px;
-  border-color: var(--accent);
-  background: rgba(0, 212, 255, 0.04);
-}
-
-@media (max-width: 768px) {
-  body {
-    cursor: auto;
-  }
-
-  .cursor-dot,
-  .cursor-ring {
-    display: none;
-  }
 }
 
 /* ── Noise texture ──────────────────────────────────────── */
