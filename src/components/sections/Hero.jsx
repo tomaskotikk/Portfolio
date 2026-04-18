@@ -125,7 +125,7 @@ const CodePanel = ({ language = 'cs' }) => {
         {/* Code block content */}
           <div className="hero-code-panel-content">
             <div><span style={{ color: '#60a5fa' }}>const</span> <span style={{ color: '#67e8f9' }}>Developer</span> <span style={{ color: 'rgba(255,255,255,0.5)' }}>= {'{'}</span></div>
-            <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>name</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7', borderBottom: '1px solid rgba(110,231,183,0.3)' }}>"Tomas Kotik"</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
+            <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>name</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7', borderBottom: '1px solid rgba(110,231,183,0.3)' }}>"Tomáš Kotík"</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
             <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>role</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7' }}>{language === 'en' ? 'Full-Stack Developer' : 'Full-Stack vývojář'}</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
             <div className="hero-code-panel-line-indent"><span style={{ color: '#93c5fd' }}>passion</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>:</span> <span style={{ color: '#6ee7b7' }}>{language === 'en' ? 'Web apps and games' : 'Webové aplikace a hry'}</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>,</span></div>
 
@@ -146,7 +146,7 @@ const CodePanel = ({ language = 'cs' }) => {
               transition={{ duration: 2, repeat: Infinity }}
               style={{ color: '#34d399', fontWeight: 500 }}
             >
-                "{language === 'en' ? 'Building...' : 'Vytvarim...'}"
+                "{language === 'en' ? 'Building...' : 'Vytvařím...'}"
             </motion.span>
           </div>
           <div><span style={{ color: 'rgba(255,255,255,0.5)' }}>{'}'}</span></div>
@@ -167,7 +167,6 @@ const Hero = ({ language = 'cs' }) => {
   const [isReady, setIsReady] = useState(false);
   const text = {
     cs: {
-      available: 'Dostupný pro projekty',
       heading1: 'Tomáš',
       heading2: 'Kotík',
       bio: 'Jsem front-end i backend developer, který staví rychlé a funkční weby. Kombinuji technické znalosti s čistým designem, aby složité nápady fungovaly jednoduše.',
@@ -183,7 +182,6 @@ const Hero = ({ language = 'cs' }) => {
       contact: 'Contact me',
     },
   }[language] || {
-    available: 'Dostupný pro projekty',
     heading1: 'Tomáš',
     heading2: 'Kotík',
     bio: 'Jsem front-end i backend developer, který staví rychlé a funkční weby. Kombinuji technické znalosti s čistým designem, aby složité nápady fungovaly jednoduše.',

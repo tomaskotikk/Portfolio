@@ -47,7 +47,6 @@ const Contact = ({ language = 'cs' }) => {
       desc: 'Hledam zajimave projekty. At uz potrebujes web, aplikaci nebo konzultaci, klidne se ozvi.',
       location: 'Lokalita',
       socials: 'Najdes me na',
-      available: 'Dostupny pro spolupraci',
       availableDesc: 'Otevreny freelance projektum, stazim i dlouhodobe spolupraci.',
       name: 'Tvoje jmeno',
       email: 'E-mail',

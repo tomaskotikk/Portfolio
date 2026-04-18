@@ -111,7 +111,7 @@ const ProjectModal = ({ project, onClose, language = 'cs', text }) => {
                   </div>
                   <div className="elite-spec">
                     <span className="spec-elite-label">{text.author}</span>
-                    <p className="spec-elite-value">Tomas Kotik</p>
+                    <p className="spec-elite-value">Tomáš Kotík</p>
                   </div>
                 </div>
 

@@ -59,8 +59,8 @@ const IntroScreen = ({ onComplete, language = 'cs' }) => {
       { text: 'VÍTEJ', highlight: false },
       { text: 'NA', highlight: false },
       { text: 'MÉM', highlight: false },
+      { text: 'WEBOVÉM', highlight: true },
       { text: 'PORTFOLIU', highlight: true },
-      { text: 'WEBU', highlight: true },
     ];
 
   const containerVariants = {

@@ -28,8 +28,6 @@ const Navbar = ({ language = 'cs', onLanguageChange }) => {
     cs: {
       nav: 'NAVIGACE',
       back: 'Zpet na web',
-      available: 'Dostupny',
-      availableProjects: 'Dostupny pro projekty',
       toggleMenu: 'Prepnout menu',
     },
     en: {
@@ -42,8 +40,6 @@ const Navbar = ({ language = 'cs', onLanguageChange }) => {
   }[language] || {
     nav: 'NAVIGACE',
     back: 'Zpet na web',
-    available: 'Dostupny',
-    availableProjects: 'Dostupny pro projekty',
     toggleMenu: 'Prepnout menu',
   };
 

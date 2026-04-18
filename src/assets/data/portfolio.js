@@ -130,7 +130,7 @@ export const projects = [
   },
   {
     id: 2,
-    title: 'Zabcikova - Ucetnictvi',
+    title: 'Žabčíková - Účetnictví',
     description: {
       cs: 'Oficiální web Žabčíková - Účetnictví přímo ve Zlíně. Moderní, responzivní a čistý design.',
       en: 'Official website for Zabcikova Accounting in Zlin. Modern, responsive, and clean design.',
@@ -217,7 +217,7 @@ export const projects = [
     },
     tags: ['School', '3D', 'Game'],
     category: 'school',
-    image: '/Images/coding.jpg',
+    image: '/Images/tulen.webp',
     liveUrl: 'https://github.com/tomaskotikk/Klauzury-3D-Tulen',
     detailUrl: '#',
     status: 'Deployed',
@@ -255,7 +255,7 @@ export const projects = [
     },
     tags: ['Fun', 'Fintech', 'Web Tool'],
     category: 'fun',
-    image: '/Images/Bank.jpg',
+    image: '/Images/qr.png',
     liveUrl: 'https://qr-kody.vercel.app/',
     detailUrl: '#',
     status: 'Deployed',
