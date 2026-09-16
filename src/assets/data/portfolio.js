@@ -123,7 +123,7 @@ export const projects = [
     tags: ['School', 'Web App', 'Management'],
     category: 'school',
     image: '/Images/preview.png',
-    liveUrl: 'https://teampulse.tomaskotik.cz/index.html',
+    liveUrl: 'https://www.teampulse.cfd/landing/index.html',
     detailUrl: '#',
     status: 'Deployed',
     color: '#0066FF',
