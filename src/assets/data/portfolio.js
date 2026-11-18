@@ -27,7 +27,7 @@ export const personal = {
     cs: 'Zlín, Česká republika',
     en: 'Zlin, Czech Republic',
   },
-  avatar: '/Images/img.png',
+  avatar: '/Images/tomas-portrait.jpg',
   links: {
     github: 'https://github.com/tomaskotikk',
     linkedin: 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kot%C3%ADk-5a4b493aa/',
@@ -44,7 +44,7 @@ export const stats = [
     description: { cs: 'Weby, aplikace a školní projekty', en: 'Websites, apps, and school projects' },
   },
   {
-    label: { cs: 'Klientske weby', en: 'Client Websites' },
+    label: { cs: 'Klientské weby', en: 'Client Websites' },
     value: '3+',
     icon: 'award',
     description: { cs: 'Reálné projekty pro klienty', en: 'Real-world client work' },
@@ -111,6 +111,7 @@ export const techStack = [
 export const projects = [
   {
     id: 1,
+    featured: true,
     title: 'TeamPulse',
     description: {
       cs: 'Aplikace pro správu sportovních týmů, hráčů a týmové agendy.',
@@ -130,6 +131,7 @@ export const projects = [
   },
   {
     id: 2,
+    featured: true,
     title: 'Žabčíková - Účetnictví',
     description: {
       cs: 'Oficiální web Žabčíková - Účetnictví přímo ve Zlíně. Moderní, responzivní a čistý design.',
@@ -149,6 +151,7 @@ export const projects = [
   },
   {
     id: 3,
+    featured: true,
     title: 'Kostkopark',
     description: {
       cs: 'Oficiální web dětské herny ve Zlíně s moderním responzivním designem a rezervačním systémem.',
@@ -168,6 +171,7 @@ export const projects = [
   },
   {
     id: 4,
+    featured: true,
     title: 'Rugby Camp',
     description: {
       cs: 'Oficiální web letního rugby kempu s informacemi, přihláškou a galerií.',
@@ -514,3 +518,33 @@ export const navLinks = {
     { label: 'Contact', href: '#contact' },
   ],
 };
+
+export const awards = [
+  {
+    id: 'hj-2nd',
+    year: '2026',
+    title: { cs: '2. místo', en: '2nd Place' },
+    event: 'Hackathon Junior 2026',
+    org: 'AT&T × JA Czech',
+    place: { cs: 'Brno, 13. 11. 2026 · tým 505', en: 'Brno, Nov 13, 2026 · team 505' },
+    image: '/Images/awards/hackathon-junior-2nd.jpg',
+  },
+  {
+    id: 'hj-tech',
+    year: '2026',
+    title: { cs: 'Nejlepší technické řešení', en: 'Best Technical Solution' },
+    event: 'Hackathon Junior 2026',
+    org: 'AT&T × JA Czech',
+    place: { cs: 'Brno, 13. 11. 2026 · tým 505', en: 'Brno, Nov 13, 2026 · team 505' },
+    image: '/Images/awards/hackathon-junior-tech.jpg',
+  },
+  {
+    id: 'ho-2nd',
+    year: '2026',
+    title: { cs: '2. místo', en: '2nd Place' },
+    event: 'Hackathon Online 2026',
+    org: 'AT&T Software Symposium',
+    place: { cs: '„150 Years of Connecting“ · tým Two Man Mission', en: '“150 Years of Connecting” · team Two Man Mission' },
+    image: '/Images/awards/hackathon-online-2nd.jpg',
+  },
+];
