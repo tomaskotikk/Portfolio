@@ -76,7 +76,7 @@ export default function About({ lang }) {
 
         <div className="about__grid">
           <div className="about__photo" data-reveal>
-            <img src="/Images/tomas-wide.jpg" alt="" loading="lazy" />
+            <img src="/Images/tomas-about.jpg" alt="Tomáš Kotík" loading="lazy" />
           </div>
           <p className="about__statement" key={lang}>
             {tx.statement}

@@ -719,7 +719,6 @@ html.menu-open .nav {
   height: 100%;
   object-fit: cover;
   object-position: 50% 40%;
-  filter: grayscale(0.15);
   transition: filter 0.8s var(--ease);
 }
 .about__photo:hover img {
