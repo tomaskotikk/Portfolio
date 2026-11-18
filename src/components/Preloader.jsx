@@ -37,7 +37,7 @@ export default function Preloader({ onReveal, onDone }) {
           <span>Tomáš</span> <span>Kotík</span>
         </div>
         <div className="pl-meta">
-          <span className="mono">Full-stack developer</span>
+          <span className="mono">Portfolio ©2026</span>
           <span className="mono" ref={num}>
             000
           </span>

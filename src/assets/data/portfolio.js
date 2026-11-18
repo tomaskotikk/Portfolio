@@ -27,7 +27,7 @@ export const personal = {
     cs: 'Zlín, Česká republika',
     en: 'Zlin, Czech Republic',
   },
-  avatar: '/Images/tomas-cutout.webp',
+  avatar: '/Images/tomas-portrait.jpg',
   links: {
     github: 'https://github.com/tomaskotikk',
     linkedin: 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kot%C3%ADk-5a4b493aa/',
@@ -526,8 +526,7 @@ export const awards = [
     title: { cs: '2. místo', en: '2nd Place' },
     event: 'Hackathon Junior 2026',
     org: 'AT&T × JA Czech',
-    team: '505',
-    date: { cs: 'Brno · 13. 11. 2026', en: 'Brno · Nov 13, 2026' },
+    place: { cs: 'Brno, 13. 11. 2026 · tým 505', en: 'Brno, Nov 13, 2026 · team 505' },
     image: '/Images/awards/hackathon-junior-2nd.jpg',
   },
   {
@@ -536,8 +535,7 @@ export const awards = [
     title: { cs: 'Nejlepší technické řešení', en: 'Best Technical Solution' },
     event: 'Hackathon Junior 2026',
     org: 'AT&T × JA Czech',
-    team: '505',
-    date: { cs: 'Brno · 13. 11. 2026', en: 'Brno · Nov 13, 2026' },
+    place: { cs: 'Brno, 13. 11. 2026 · tým 505', en: 'Brno, Nov 13, 2026 · team 505' },
     image: '/Images/awards/hackathon-junior-tech.jpg',
   },
   {
@@ -546,8 +544,7 @@ export const awards = [
     title: { cs: '2. místo', en: '2nd Place' },
     event: 'Hackathon Online 2026',
     org: 'AT&T Software Symposium',
-    team: 'Two Man Mission',
-    date: { cs: 'Online · 2026', en: 'Online · 2026' },
+    place: { cs: '„150 Years of Connecting“ · tým Two Man Mission', en: '“150 Years of Connecting” · team Two Man Mission' },
     image: '/Images/awards/hackathon-online-2nd.jpg',
   },
 ];
