@@ -7,6 +7,7 @@ import Nav from './components/Nav';
 import Hero from './components/Hero';
 import Marquee from './components/Marquee';
 import About from './components/About';
+import Services from './components/Services';
 import Awards from './components/Awards';
 import Work from './components/Work';
 import Journey from './components/Journey';
@@ -94,6 +95,19 @@ export default function App() {
     { scope: root, dependencies: [ready] }
   );
 
+  // Spotlight hover on cards: feed pointer position into CSS vars of the hovered .spot element
+  useEffect(() => {
+    const move = (e) => {
+      const el = e.target.closest?.('.spot');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--x', `${e.clientX - r.left}px`);
+      el.style.setProperty('--y', `${e.clientY - r.top}px`);
+    };
+    document.addEventListener('pointermove', move, { passive: true });
+    return () => document.removeEventListener('pointermove', move);
+  }, []);
+
   const handleReveal = () => {
     try {
       sessionStorage.setItem('tk-intro', '1');
@@ -107,6 +121,7 @@ export default function App() {
   return (
     <div ref={root}>
       <div className="grain" aria-hidden="true" />
+      <div className="bg-glow" aria-hidden="true" />
       {preloader && <Preloader onReveal={handleReveal} onDone={() => setPreloader(false)} />}
       <Cursor />
       <Nav lang={lang} setLang={setLang} ready={ready} />
@@ -114,6 +129,7 @@ export default function App() {
         <Hero lang={lang} ready={ready} />
         <Marquee />
         <About lang={lang} />
+        <Services lang={lang} />
         <Awards lang={lang} />
         <Work lang={lang} />
         <Journey lang={lang} />

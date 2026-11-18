@@ -1,30 +1,63 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, X } from 'lucide-react';
+import { Award, Calendar, Cpu, Maximize2, Medal, Trophy, Users, X } from 'lucide-react';
 import { awards } from '../assets/data/portfolio';
-import { getLenis } from '../lib/motion';
+import { gsap, getLenis, finePointer, reduced } from '../lib/motion';
 import SectionHead from './SectionHead';
-import HoverPreview from './HoverPreview';
 
 const t = {
   cs: {
     label: 'Ocenění',
-    title: 'Uznání, které mluví za mě.',
-    aside: 'Tři umístění z hackathonů AT&T v roce 2026 — včetně ceny za nejlepší technické řešení.',
-    view: 'Certifikát',
+    title: 'Výsledky, které',
+    highlight: 'mluví za mě.',
+    lead: 'Tři umístění z hackathonů AT&T v roce 2026 — včetně ceny za nejlepší technické řešení.',
+    view: 'Zobrazit certifikát',
     close: 'Zavřít',
   },
   en: {
-    label: 'Recognition',
-    title: 'Recognition that speaks for itself.',
-    aside: 'Three placements at AT&T hackathons in 2026 — including the award for the best technical solution.',
-    view: 'Certificate',
+    label: 'Awards',
+    title: 'Results that',
+    highlight: 'speak for me.',
+    lead: 'Three placements at AT&T hackathons in 2026 — including the award for the best technical solution.',
+    view: 'View certificate',
     close: 'Close',
   },
 };
 
+const icons = { 'hj-2nd': Medal, 'hj-tech': Cpu, 'ho-2nd': Trophy };
+
+function TiltCard({ children, className, ...rest }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !finePointer || reduced) return;
+    gsap.set(el, { transformPerspective: 900 });
+    const rx = gsap.quickTo(el, 'rotationX', { duration: 0.6, ease: 'power3' });
+    const ry = gsap.quickTo(el, 'rotationY', { duration: 0.6, ease: 'power3' });
+    const move = (e) => {
+      const r = el.getBoundingClientRect();
+      ry(((e.clientX - r.left) / r.width - 0.5) * 10);
+      rx(-((e.clientY - r.top) / r.height - 0.5) * 10);
+    };
+    const reset = () => {
+      rx(0);
+      ry(0);
+    };
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerleave', reset);
+    return () => {
+      el.removeEventListener('pointermove', move);
+      el.removeEventListener('pointerleave', reset);
+    };
+  }, []);
+  return (
+    <button ref={ref} className={className} {...rest}>
+      {children}
+    </button>
+  );
+}
+
 export default function Awards({ lang }) {
   const tx = t[lang];
-  const preview = useRef(null);
   const [open, setOpen] = useState(null);
 
   useEffect(() => {
@@ -42,32 +75,43 @@ export default function Awards({ lang }) {
   return (
     <section className="section" id="awards">
       <div className="container">
-        <SectionHead index="02" label={tx.label} title={tx.title} aside={tx.aside} lang={lang} />
+        <SectionHead icon={Award} label={tx.label} title={tx.title} highlight={tx.highlight} lead={tx.lead} lang={lang} />
 
-        <ul className="rows" onPointerLeave={() => preview.current?.hide()}>
-          {awards.map((a, i) => (
-            <li key={a.id} data-reveal data-delay={i * 0.06}>
-              <button
-                className="row award"
-                onPointerEnter={() => preview.current?.show(a.image)}
-                onClick={() => setOpen(a)}
-              >
-                <span className="row__idx mono">{a.year}</span>
-                <span className="row__title">
-                  {a.title[lang]}
-                  <small>{a.event}</small>
-                </span>
-                <span className="row__meta">
-                  <span>{a.org}</span>
-                  <small>{a.place[lang]}</small>
-                </span>
-                <img className="row__thumb" src={a.image} alt="" loading="lazy" />
-                <ArrowUpRight className="row__arrow" size={20} />
-              </button>
-            </li>
-          ))}
-        </ul>
-        <HoverPreview ref={preview} ratio="1.41 / 1" />
+        <div className="awards">
+          {awards.map((a, i) => {
+            const Icon = icons[a.id] || Trophy;
+            return (
+              <div key={a.id} data-reveal data-delay={i * 0.1}>
+                <TiltCard className="tile spot award-card" data-cursor={tx.view.split(' ')[0]} onClick={() => setOpen(a)} aria-label={`${tx.view}: ${a.title[lang]} — ${a.event}`}>
+                  <div className="award-card__media">
+                    <img src={a.image} alt="" loading="lazy" />
+                    <span className="award-card__zoom">
+                      <Maximize2 size={15} />
+                    </span>
+                  </div>
+                  <div className="award-card__body">
+                    <span className={`award-card__icon ${a.id === 'hj-tech' ? 'is-tech' : ''}`}>
+                      <Icon size={22} strokeWidth={2} />
+                    </span>
+                    <h3>{a.title[lang]}</h3>
+                    <p className="award-card__event">{a.event}</p>
+                    <ul className="award-card__meta">
+                      <li>
+                        <Award size={14} /> {a.org}
+                      </li>
+                      <li>
+                        <Users size={14} /> {lang === 'cs' ? 'Tým' : 'Team'} {a.team}
+                      </li>
+                      <li>
+                        <Calendar size={14} /> {a.date[lang]}
+                      </li>
+                    </ul>
+                  </div>
+                </TiltCard>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {open && (
@@ -79,9 +123,9 @@ export default function Awards({ lang }) {
             <img src={open.image} alt={`${open.event} — ${open.title[lang]}`} />
             <figcaption>
               <span>
-                {open.title[lang]} · {open.event}
+                <Trophy size={16} /> {open.title[lang]} · {open.event}
               </span>
-              <span className="mono">{open.org}</span>
+              <span className="muted">{open.org}</span>
             </figcaption>
           </figure>
         </div>

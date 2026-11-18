@@ -1,19 +1,20 @@
 import { useState } from 'react';
-import { ArrowUpRight, Check, Copy } from 'lucide-react';
+import { ArrowUpRight, Check, Copy, Mail, MapPin, MessageSquare, Send } from 'lucide-react';
 import { personal } from '../assets/data/portfolio';
+import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from './BrandIcons';
+import SectionHead from './SectionHead';
 import Magnetic from './Magnetic';
 
 const t = {
   cs: {
     label: 'Kontakt',
-    title: (
-      <>
-        Postavme spolu <em>něco dobrého.</em>
-      </>
-    ),
-    desc: 'Hledáte vývojáře na stáž, juniorní pozici nebo web na zakázku? Ozvěte se.',
-    copy: 'Kopírovat e-mail',
+    title: 'Postavme spolu',
+    highlight: 'něco dobrého.',
+    lead: 'Hledáte vývojáře na stáž, juniorní pozici nebo web na zakázku? Ozvěte se.',
+    copy: 'Kopírovat',
     copied: 'Zkopírováno',
+    mail: 'E-mail',
+    loc: 'Lokalita',
     name: 'Jméno',
     email: 'E-mail',
     message: 'Zpráva',
@@ -25,17 +26,17 @@ const t = {
     sent: 'Díky, zpráva dorazila. Ozvu se.',
     error: 'Odeslání se nepovedlo. Napište mi prosím přímo na e-mail.',
     subject: 'Nová zpráva z portfolia',
+    formTitle: 'Napište mi',
   },
   en: {
     label: 'Contact',
-    title: (
-      <>
-        Let&rsquo;s build <em>something good.</em>
-      </>
-    ),
-    desc: 'Looking for an intern, a junior developer or a custom website? Get in touch.',
-    copy: 'Copy e-mail',
+    title: "Let's build",
+    highlight: 'something good.',
+    lead: 'Looking for an intern, a junior developer or a custom website? Get in touch.',
+    copy: 'Copy',
     copied: 'Copied',
+    mail: 'E-mail',
+    loc: 'Location',
     name: 'Name',
     email: 'E-mail',
     message: 'Message',
@@ -47,14 +48,15 @@ const t = {
     sent: "Thanks, message received. I'll get back to you.",
     error: 'Sending failed. Please e-mail me directly.',
     subject: 'New message from portfolio',
+    formTitle: 'Send a message',
   },
 };
 
 const socials = [
-  ['LinkedIn', personal.links.linkedin],
-  ['GitHub', personal.links.github],
-  ['Instagram', personal.links.instagram],
-  ['Facebook', personal.links.facebook],
+  [LinkedinIcon, 'LinkedIn', personal.links.linkedin, 'linkedin'],
+  [GithubIcon, 'GitHub', personal.links.github, 'github'],
+  [InstagramIcon, 'Instagram', personal.links.instagram, 'instagram'],
+  [FacebookIcon, 'Facebook', personal.links.facebook, 'facebook'],
 ];
 
 export default function Contact({ lang }) {
@@ -98,58 +100,68 @@ export default function Contact({ lang }) {
   return (
     <section className="section contact" id="contact">
       <div className="container">
-        <div className="shead__meta">
-          <span className="mono">(05)</span>
-          <span className="mono">{tx.label}</span>
-        </div>
-        <h2 className="contact__title" data-split key={lang}>
-          {tx.title}
-        </h2>
+        <SectionHead icon={MessageSquare} label={tx.label} title={tx.title} highlight={tx.highlight} lead={tx.lead} lang={lang} />
 
         <div className="contact__grid">
-          <div className="contact__left" data-reveal>
-            <p className="contact__desc">{tx.desc}</p>
-            <div className="contact__mail">
-              <a href={`mailto:${personal.email}`} className="contact__email" data-cursor="Mail">
-                {personal.email}
-              </a>
-              <button className="icon-btn" onClick={copy} aria-label={tx.copy} title={tx.copy}>
+          <div className="contact__left">
+            <div className="tile spot contact-card" data-reveal>
+              <span className="tile__icon">
+                <Mail size={18} />
+              </span>
+              <div className="contact-card__text">
+                <span className="tile__label">{tx.mail}</span>
+                <a href={`mailto:${personal.email}`} className="contact-card__value">
+                  {personal.email}
+                </a>
+              </div>
+              <button className="icon-btn" onClick={copy} aria-label={tx.copy} title={copied ? tx.copied : tx.copy}>
                 {copied ? <Check size={16} /> : <Copy size={16} />}
-                <span className="sr-live" aria-live="polite">
-                  {copied ? tx.copied : ''}
-                </span>
               </button>
+              <span className="sr-live" aria-live="polite">
+                {copied ? tx.copied : ''}
+              </span>
             </div>
-            <ul className="socials">
-              {socials.map(([name, href]) => (
-                <li key={name}>
-                  <a href={href} target="_blank" rel="noreferrer">
-                    {name}
-                    <ArrowUpRight size={14} />
-                  </a>
-                </li>
+            <div className="tile spot contact-card" data-reveal data-delay="0.05">
+              <span className="tile__icon">
+                <MapPin size={18} />
+              </span>
+              <div className="contact-card__text">
+                <span className="tile__label">{tx.loc}</span>
+                <span className="contact-card__value">{personal.location[lang]}</span>
+              </div>
+            </div>
+            <div className="socials" data-reveal data-delay="0.1">
+              {socials.map(([Icon, name, href, key]) => (
+                <a key={name} href={href} target="_blank" rel="noreferrer" className={`tile spot social social--${key}`}>
+                  <Icon size={20} />
+                  <span>{name}</span>
+                  <ArrowUpRight size={16} className="social__arrow" />
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
 
-          <form className="form" onSubmit={submit} data-reveal data-delay="0.1">
+          <form className="tile form" onSubmit={submit} data-reveal data-delay="0.1">
+            <h3>
+              <Send size={18} /> {tx.formTitle}
+            </h3>
             <label>
-              <span className="mono">{tx.name}</span>
+              <span>{tx.name}</span>
               <input required name="name" placeholder={tx.namePh} autoComplete="name" {...field('name')} />
             </label>
             <label>
-              <span className="mono">{tx.email}</span>
+              <span>{tx.email}</span>
               <input required type="email" name="email" placeholder={tx.emailPh} autoComplete="email" {...field('email')} />
             </label>
             <label>
-              <span className="mono">{tx.message}</span>
+              <span>{tx.message}</span>
               <textarea required name="message" rows={4} placeholder={tx.msgPh} {...field('message')} />
             </label>
             <div className="form__foot">
               <Magnetic>
-                <button className="btn btn--accent" type="submit" disabled={status === 'sending'}>
+                <button className="btn btn--primary" type="submit" disabled={status === 'sending'}>
                   {status === 'sending' ? tx.sending : tx.send}
-                  <ArrowUpRight size={16} />
+                  <Send size={16} />
                 </button>
               </Magnetic>
               {status === 'sent' && <span className="form__msg">{tx.sent}</span>}
