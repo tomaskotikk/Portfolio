@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap, ScrollTrigger, SplitText, useGSAP, initLenis, getLenis, reduced } from './lib/motion';
 
 import Preloader from './components/Preloader';
-import Cursor from './components/Cursor';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
 import Marquee from './components/Marquee';
@@ -108,7 +107,6 @@ export default function App() {
     <div ref={root}>
       <div className="grain" aria-hidden="true" />
       {preloader && <Preloader onReveal={handleReveal} onDone={() => setPreloader(false)} />}
-      <Cursor />
       <Nav lang={lang} setLang={setLang} ready={ready} />
       <main>
         <Hero lang={lang} ready={ready} />

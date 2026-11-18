@@ -142,7 +142,6 @@ export default function Hero({ lang, ready }) {
               <source media="(max-width: 768px)" srcSet="/Images/tomas-mobile.jpg" />
               <img src={personal.avatar} alt="Tomáš Kotík" width="876" height="1024" fetchpriority="high" />
             </picture>
-            <figcaption className="mono">Praha, 2026</figcaption>
           </figure>
         </div>
 

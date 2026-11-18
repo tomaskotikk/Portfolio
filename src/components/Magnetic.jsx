@@ -1,35 +1,4 @@
-import { useEffect, useRef } from 'react';
-import { gsap, finePointer, reduced } from '../lib/motion';
-
-/** Wraps a single interactive element and pulls it gently toward the pointer. */
-export default function Magnetic({ children, strength = 0.35 }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || !finePointer || reduced) return;
-    const xTo = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-    const yTo = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-    const move = (e) => {
-      const r = el.getBoundingClientRect();
-      xTo((e.clientX - (r.left + r.width / 2)) * strength);
-      yTo((e.clientY - (r.top + r.height / 2)) * strength);
-    };
-    const reset = () => {
-      xTo(0);
-      yTo(0);
-    };
-    el.addEventListener('pointermove', move);
-    el.addEventListener('pointerleave', reset);
-    return () => {
-      el.removeEventListener('pointermove', move);
-      el.removeEventListener('pointerleave', reset);
-    };
-  }, [strength]);
-
-  return (
-    <span className="magnetic" ref={ref}>
-      {children}
-    </span>
-  );
+/** Plain wrapper kept for layout; the pointer-follow effect was removed on purpose. */
+export default function Magnetic({ children }) {
+  return <span className="magnetic">{children}</span>;
 }

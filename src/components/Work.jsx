@@ -4,7 +4,6 @@ import { GithubIcon } from './BrandIcons';
 import { projects } from '../assets/data/portfolio';
 import { gsap, useGSAP, reduced, ScrollTrigger } from '../lib/motion';
 import SectionHead from './SectionHead';
-import HoverPreview from './HoverPreview';
 
 const t = {
   cs: {
@@ -32,7 +31,6 @@ const featuredOrder = [1, 3, 2, 4];
 export default function Work({ lang }) {
   const tx = t[lang];
   const root = useRef(null);
-  const preview = useRef(null);
   const [filter, setFilter] = useState('all');
 
   const featured = featuredOrder.map((id) => projects.find((p) => p.id === id));
@@ -112,7 +110,7 @@ export default function Work({ lang }) {
             </div>
           </div>
 
-          <ul className="rows" onPointerLeave={() => preview.current?.hide()}>
+          <ul className="rows">
             {rest.map((p) => (
               <li key={p.id}>
                 <a
@@ -120,7 +118,6 @@ export default function Work({ lang }) {
                   target="_blank"
                   rel="noreferrer"
                   className="row"
-                  onPointerEnter={() => preview.current?.show(p.image)}
                 >
                   <span className="row__idx mono">{String(p.id).padStart(2, '0')}</span>
                   <span className="row__title">
@@ -143,7 +140,6 @@ export default function Work({ lang }) {
               </li>
             ))}
           </ul>
-          <HoverPreview ref={preview} />
         </div>
       </div>
     </section>
