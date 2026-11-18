@@ -54,7 +54,7 @@ export default function Hero({ lang, ready }) {
       const tl = gsap.timeline({ delay: 0.15 });
       tl.from(split.chars, { yPercent: 115, duration: 1.3, ease: 'expo.out', stagger: 0.035 })
         .from('.hero__photo', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'expo.inOut' }, 0)
-        .from('.hero__photo img', { scale: 1.35, duration: 1.8, ease: 'expo.out' }, 0.2)
+        .from('.hero__photo picture', { scale: 1.35, duration: 1.8, ease: 'expo.out' }, 0.2)
         .from('.hero [data-in]', { y: 24, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: 0.07 }, 0.45);
 
       // Scroll: photo parallax and name drift
@@ -138,7 +138,10 @@ export default function Hero({ lang, ready }) {
           </div>
 
           <figure className="hero__photo" data-cursor="Hi!">
-            <img src={personal.avatar} alt="Tomáš Kotík" width="876" height="1024" fetchpriority="high" />
+            <picture>
+              <source media="(max-width: 768px)" srcSet="/Images/tomas-mobile.jpg" />
+              <img src={personal.avatar} alt="Tomáš Kotík" width="876" height="1024" fetchpriority="high" />
+            </picture>
             <figcaption className="mono">Praha, 2026</figcaption>
           </figure>
         </div>
