@@ -18,7 +18,7 @@ const t = {
     live: 'Otevřít web',
     repo: 'Zdrojový kód',
     next: 'Další projekt',
-    kind: { web: 'Webová aplikace', mobile: 'Mobilní aplikace', game: 'Hra' },
+    kind: { web: 'Webová aplikace', mobile: 'Mobilní aplikace', game: 'Hra', tool: 'AI nástroj' },
     cta: 'Líbí se vám to? Pojďme spolu něco postavit.',
     contact: 'Napsat e-mail',
   },
@@ -35,7 +35,7 @@ const t = {
     live: 'Open website',
     repo: 'Source code',
     next: 'Next project',
-    kind: { web: 'Web app', mobile: 'Mobile app', game: 'Game' },
+    kind: { web: 'Web app', mobile: 'Mobile app', game: 'Game', tool: 'AI tool' },
     cta: 'Like it? Let’s build something together.',
     contact: 'Send an email',
   },
@@ -123,7 +123,7 @@ export default function ProjectPage({ slug, lang, onBack }) {
             <dt className="mono">{tx.stack}</dt>
             <dd className="pp__stack">
               {p.stack.map((s) => (
-                <span className="tag" key={s}>
+                <span className="tag tag--tech" key={s}>
                   {s}
                 </span>
               ))}
@@ -195,7 +195,7 @@ export default function ProjectPage({ slug, lang, onBack }) {
           {p.mobile.length > 0 && (
             <div className="pp__mobile" data-reveal>
               <h3 className="mono">{tx.mobile}</h3>
-              <div className="pp__phones">
+              <div className={`pp__phones${p.mobile.length === 1 ? ' pp__phones--single' : ''}`}>
                 {p.mobile.map((src) => (
                   <span className="phone phone--lg" key={src}>
                     <img src={src} alt="" loading="lazy" />

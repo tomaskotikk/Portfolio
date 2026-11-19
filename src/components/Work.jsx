@@ -16,7 +16,9 @@ const t = {
     open: 'Detail',
     case: 'Zobrazit case study',
     winner: 'Vítězný projekt',
-    kind: { web: 'Web', mobile: 'Mobilní app', game: 'Hra' },
+    wip: 'Ve vývoji',
+    isNew: 'Novinka',
+    kind: { web: 'Web', mobile: 'Mobilní app', game: 'Hra', tool: 'AI nástroj' },
   },
   en: {
     label: 'Selected work',
@@ -27,11 +29,13 @@ const t = {
     open: 'Details',
     case: 'View case study',
     winner: 'Award-winning project',
-    kind: { web: 'Web', mobile: 'Mobile app', game: 'Game' },
+    wip: 'In development',
+    isNew: 'New',
+    kind: { web: 'Web', mobile: 'Mobile app', game: 'Game', tool: 'AI tool' },
   },
 };
 
-const archiveIds = [4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15];
+const archiveIds = [4, 5, 8, 9, 10, 11, 12, 13, 14, 15];
 const href = (slug) => `#/projekt/${slug}`;
 
 function Card({ p, lang, tx, i }) {
@@ -62,6 +66,7 @@ function Card({ p, lang, tx, i }) {
           {p.kind === 'mobile' && <Smartphone size={12} />} {tx.kind[p.kind]}
           {p.client && ` · ${tx.filters.client}`}
         </span>
+        {(p.wip || p.isNew) && <span className={`pcard__flag mono${p.isNew ? ' is-new' : ''}`}>{p.isNew ? tx.isNew : tx.wip}</span>}
       </div>
       <div className="pcard__info">
         <div>
@@ -76,7 +81,7 @@ function Card({ p, lang, tx, i }) {
       </div>
       <div className="card__tags">
         {p.stack.slice(0, 4).map((s) => (
-          <span key={s} className="tag">
+          <span key={s} className="tag tag--tech">
             {s}
           </span>
         ))}
@@ -96,7 +101,7 @@ export default function Work({ lang }) {
       caseStudies.slice(1).filter((p) => {
         if (filter === 'all') return true;
         if (filter === 'client') return p.client;
-        return p.kind === filter;
+        return p.kind === filter || (filter === 'web' && p.kind === 'tool');
       }),
     [filter]
   );
@@ -154,7 +159,7 @@ export default function Work({ lang }) {
               <sup className="mono">
                 {key === 'all'
                   ? caseStudies.length - 1
-                  : caseStudies.slice(1).filter((p) => (key === 'client' ? p.client : p.kind === key)).length}
+                  : caseStudies.slice(1).filter((p) => (key === 'client' ? p.client : p.kind === key || (key === 'web' && p.kind === 'tool'))).length}
               </sup>
             </button>
           ))}

@@ -37,7 +37,7 @@ export default function Hero({ lang, ready }) {
       if (!ready || reduced) return;
       const split = SplitText.create('.hero__name', { type: 'chars', mask: 'chars' });
       const tl = gsap.timeline({ delay: 0.15 });
-      tl.from(split.chars, { yPercent: 115, duration: 1.3, ease: 'expo.out', stagger: 0.035 })
+      tl.from(split.chars, { yPercent: 125, duration: 1.3, ease: 'expo.out', stagger: 0.035, onComplete: () => split.revert() })
         .from('.hero__photo', { clipPath: 'inset(100% 0 0 0)', duration: 1.4, ease: 'expo.inOut' }, 0)
         .from('.hero__photo picture', { scale: 1.35, duration: 1.8, ease: 'expo.out' }, 0.2)
         .from('.hero [data-in]', { y: 24, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: 0.07 }, 0.45);
