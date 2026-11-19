@@ -1435,8 +1435,8 @@ html.menu-open .nav {
   transition: color 0.3s, transform 0.4s var(--ease);
 }
 .stack__group li img {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   filter: saturate(0.85);
   opacity: 0.95;
   transition: filter 0.3s, opacity 0.3s;
@@ -2275,6 +2275,6 @@ html.menu-open .nav {
 }
 
 /* tech stack – a touch more visible */
-.stack__group > .mono { color: var(--accent); opacity: 0.85; }
-.stack__group li { color: var(--text); padding: 0.15rem 0; }
+.stack__group > .mono { color: var(--text); }
+.stack__group li { color: var(--text); padding: 0.15rem 0; font-size: 1.15rem; }
 .stack__group li:hover { color: var(--accent); }
