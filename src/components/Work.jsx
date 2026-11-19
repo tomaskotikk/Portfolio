@@ -26,7 +26,7 @@ const t = {
   },
 };
 
-const featuredOrder = [1, 3, 2, 4];
+const featuredOrder = [20, 21, 1, 22, 23, 2];
 
 export default function Work({ lang }) {
   const tx = t[lang];
