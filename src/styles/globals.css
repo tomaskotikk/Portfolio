@@ -2261,3 +2261,15 @@ html.menu-open .nav {
 .pcard__flag.is-new {
   background: var(--accent);
 }
+
+.pp__progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 200;
+}

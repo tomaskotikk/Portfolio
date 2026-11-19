@@ -57,6 +57,7 @@ export default function ProjectPage({ slug, lang, onBack }) {
 
   useGSAP(
     () => {
+      gsap.fromTo('.pp__progress', { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 0.3 } });
       if (reduced) return;
       gsap.from('.pp [data-in]', { y: 30, autoAlpha: 0, duration: 1, ease: 'expo.out', stagger: 0.06 });
       gsap.from('.pp__cover', { clipPath: 'inset(12% 6% 0 6% round 12px)', duration: 1.4, ease: 'expo.out', delay: 0.15 });
@@ -66,6 +67,7 @@ export default function ProjectPage({ slug, lang, onBack }) {
 
   return (
     <article className="pp" ref={root} key={slug}>
+      <div className="pp__progress" aria-hidden="true" />
       <div className="container">
         <a
           href="#work"
