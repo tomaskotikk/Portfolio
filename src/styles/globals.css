@@ -1435,14 +1435,14 @@ html.menu-open .nav {
   transition: color 0.3s, transform 0.4s var(--ease);
 }
 .stack__group li img {
-  width: 16px;
-  height: 16px;
-  filter: grayscale(1) brightness(1.5);
-  opacity: 0.65;
+  width: 18px;
+  height: 18px;
+  filter: saturate(0.85);
+  opacity: 0.95;
   transition: filter 0.3s, opacity 0.3s;
 }
 .stack__group li img.logo--invert {
-  filter: grayscale(1) invert(1);
+  filter: invert(1);
 }
 .stack__group li:hover {
   transform: translateX(4px);
@@ -2273,3 +2273,8 @@ html.menu-open .nav {
   transform: scaleX(0);
   z-index: 200;
 }
+
+/* tech stack – a touch more visible */
+.stack__group > .mono { color: var(--accent); opacity: 0.85; }
+.stack__group li { color: var(--text); padding: 0.15rem 0; }
+.stack__group li:hover { color: var(--accent); }
