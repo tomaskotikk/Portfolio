@@ -13,7 +13,7 @@ export default function Footer({ lang }) {
         </span>
         <div className="footer__row">
           <span className="mono">© {new Date().getFullYear()} Tomáš Kotík</span>
-          <span className="mono">{lang === 'cs' ? 'Navrženo a vyvinuto ve Zlíně' : 'Designed & built in Zlín'}</span>
+          <span className="mono">{lang === 'cs' ? 'Navrženo a vyvinuto od nuly' : 'Designed & built from scratch'}</span>
           <div className="footer__icons">
             <a href={personal.links.github} target="_blank" rel="noreferrer" className="icon-btn" aria-label="GitHub">
               <GithubIcon size={16} />

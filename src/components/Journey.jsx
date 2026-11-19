@@ -30,8 +30,8 @@ const t = {
       {
         when: 'Freelance',
         what: 'Klientské weby',
-        where: 'Zlín a okolí',
-        desc: 'Weby pro Kostkopark, Žabčíková – Účetnictví a Rugby Kemp — od návrhu po nasazení.',
+        where: 'Klientské weby',
+        desc: 'Weby pro Číž Barber, Ateliér Rosaline, La Anné, Žabčíková – Účetnictví a Rugby Kemp — od návrhu po nasazení.',
       },
       {
         when: academic.period.cs,
@@ -66,8 +66,8 @@ const t = {
       {
         when: 'Freelance',
         what: 'Client websites',
-        where: 'Zlín region',
-        desc: 'Websites for Kostkopark, Žabčíková Accounting and Rugby Camp — from design to deployment.',
+        where: 'Client websites',
+        desc: 'Websites for Číž Barber, Ateliér Rosaline, La Anné, Žabčíková Accounting and Rugby Camp — from design to deployment.',
       },
       {
         when: academic.period.en,

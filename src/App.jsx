@@ -11,6 +11,13 @@ import Work from './components/Work';
 import Journey from './components/Journey';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ProjectPage from './components/ProjectPage';
+import { findCase } from './assets/data/caseStudies';
+
+const readRoute = () => {
+  const m = window.location.hash.match(/^#\/projekt\/([\w-]+)/);
+  return m && findCase(m[1]) ? m[1] : null;
+};
 
 const readSeen = () => {
   try {
@@ -34,6 +41,35 @@ export default function App() {
   const [preloader, setPreloader] = useState(!skipIntro);
   const [lang, setLang] = useState(readLang);
   const root = useRef(null);
+  const [project, setProject] = useState(readRoute);
+
+  useEffect(() => {
+    const onHash = () => setProject(readRoute());
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
+  // Jump to top when opening a project, refresh triggers after the view swaps
+  useEffect(() => {
+    if (project) {
+      getLenis()?.scrollTo(0, { immediate: true });
+      window.scrollTo(0, 0);
+    }
+    const id = requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => cancelAnimationFrame(id);
+  }, [project]);
+
+  const goHome = (target) => {
+    history.pushState(null, '', target || '#top');
+    setProject(null);
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+      if (target) {
+        getLenis()?.scrollTo(target, { immediate: true, offset: -40 });
+        if (!getLenis()) document.querySelector(target)?.scrollIntoView();
+      }
+    }, 60);
+  };
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -107,7 +143,12 @@ export default function App() {
     <div ref={root}>
       <div className="grain" aria-hidden="true" />
       {preloader && <Preloader onReveal={handleReveal} onDone={() => setPreloader(false)} />}
-      <Nav lang={lang} setLang={setLang} ready={ready} />
+      <Nav lang={lang} setLang={setLang} ready={ready} onNavigate={project ? goHome : null} />
+      {project ? (
+        <main>
+          <ProjectPage slug={project} lang={lang} onBack={goHome} />
+        </main>
+      ) : (
       <main>
         <Hero lang={lang} ready={ready} />
         <Marquee />
@@ -117,6 +158,7 @@ export default function App() {
         <Journey lang={lang} />
         <Contact lang={lang} />
       </main>
+      )}
       <Footer lang={lang} />
     </div>
   );

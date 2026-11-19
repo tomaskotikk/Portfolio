@@ -20,7 +20,7 @@ const links = {
   ],
 };
 
-export default function Nav({ lang, setLang, ready }) {
+export default function Nav({ lang, setLang, ready, onNavigate }) {
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
 
@@ -47,7 +47,8 @@ export default function Nav({ lang, setLang, ready }) {
   const go = (e, href) => {
     e.preventDefault();
     setOpen(false);
-    scrollTo(href);
+    if (onNavigate) onNavigate(typeof href === 'string' ? href : null);
+    else scrollTo(href);
   };
 
   return (

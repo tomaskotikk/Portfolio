@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { ArrowDownRight, ArrowUpRight, Clock3, MapPin, Trophy } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { ArrowDownRight, ArrowUpRight, Trophy } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './BrandIcons';
 import { gsap, SplitText, useGSAP, reduced, finePointer, scrollTo } from '../lib/motion';
 import { personal } from '../assets/data/portfolio';
@@ -13,10 +13,8 @@ const t = {
         Navrhuji a vyvíjím rychlé, čisté webové aplikace — <em>od databáze až po poslední pixel.</em>
       </>
     ),
-    status: 'Otevřený stážím a freelance projektům',
     badge: '2. místo + Nejlepší technické řešení · AT&T Hackathon Junior 2026',
     cta: 'Zobrazit projekty',
-    local: 'Zlín, CZ',
   },
   en: {
     role: 'Full-stack web developer',
@@ -25,23 +23,10 @@ const t = {
         I design and build fast, clean web applications — <em>from the database to the last pixel.</em>
       </>
     ),
-    status: 'Open to internships & freelance work',
     badge: '2nd Place + Best Technical Solution · AT&T Hackathon Junior 2026',
     cta: 'View selected work',
-    local: 'Zlín, CZ',
   },
 };
-
-function Clock() {
-  const fmt = () =>
-    new Intl.DateTimeFormat('cs-CZ', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Prague' }).format(new Date());
-  const [now, setNow] = useState(fmt);
-  useEffect(() => {
-    const id = setInterval(() => setNow(fmt()), 1000);
-    return () => clearInterval(id);
-  }, []);
-  return <span className="mono tabular">{now}</span>;
-}
 
 export default function Hero({ lang, ready }) {
   const root = useRef(null);
@@ -94,11 +79,6 @@ export default function Hero({ lang, ready }) {
           <span className="mono" data-in>
             {tx.role}
           </span>
-          <span className="mono hero__time" data-in>
-            <MapPin size={13} /> {tx.local}
-            <span className="hero__sep" />
-            <Clock3 size={13} /> <Clock />
-          </span>
         </div>
 
         <h1 className="hero__name">
@@ -130,10 +110,6 @@ export default function Hero({ lang, ready }) {
               <a href={personal.links.linkedin} target="_blank" rel="noreferrer" className="icon-btn" aria-label="LinkedIn">
                 <LinkedinIcon size={17} />
               </a>
-              <span className="status">
-                <i />
-                {tx.status}
-              </span>
             </div>
           </div>
 
