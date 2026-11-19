@@ -195,8 +195,8 @@ export const caseStudies = [
     links: { live: 'https://la-anne.vercel.app', repo: 'https://github.com/tomaskotikk/La-Anne' },
   },
   {
-    slug: 'friend-slop-curling',
-    title: 'Friend Slop Curling',
+    slug: 'curling-with-your-friends',
+    title: 'Curling with your Friends',
     kind: 'game',
     year: '2026',
     wip: true,
@@ -209,12 +209,12 @@ export const caseStudies = [
     mobile: [],
     about: {
       cs: [
-        'Friend Slop Curling je bláznivá párty hra pro partu kamarádů. Hráči jsou aktivní ragdolly, kloužou po ledě, koštětem ovládaným myší zametají před kamenem – a klidně s ním praští i spoluhráče.',
+        'Curling with your Friends je bláznivá párty hra pro partu kamarádů. Hráči jsou aktivní ragdolly, kloužou po ledě, koštětem ovládaným myší zametají před kamenem – a klidně s ním praští i spoluhráče.',
         'Pod legrací je poctivá fyzika: vlastní model tření ledu, stáčení kamene podle rotace a rychlosti a zametání, které viditelně „rozpouští“ led a mění dráhu kamene.',
         'Kód je od začátku rozdělený na vstup a simulaci, aby šel snadno doplnit online multiplayer přes Steam. Hra je teď ve vývoji.',
       ],
       en: [
-        'Friend Slop Curling is a chaotic party game for a group of friends. Players are active ragdolls sliding on ice, sweeping in front of the stone with a mouse-driven broom – and happily whacking teammates with it.',
+        'Curling with your Friends is a chaotic party game for a group of friends. Players are active ragdolls sliding on ice, sweeping in front of the stone with a mouse-driven broom – and happily whacking teammates with it.',
         'Underneath the fun is real physics: a custom ice-friction model, stone curl from spin and speed, and sweeping that visibly melts the ice and changes the stone’s path.',
         'The code splits input from simulation from day one, so online multiplayer via Steam can be added cleanly. The game is in active development.',
       ],
