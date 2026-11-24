@@ -75,6 +75,15 @@ export default function GitHubGraph({ lang }) {
   const [data, setData] = useState(null);
   const [failed, setFailed] = useState(false);
   const [tip, setTip] = useState(null);
+  const [play, setPlay] = useState(false);
+
+  // Start the wave animation once the card scrolls into view
+  useEffect(() => {
+    if (!data || reduced || !root.current) return;
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && (setPlay(true), io.disconnect()), { threshold: 0.25 });
+    io.observe(root.current);
+    return () => io.disconnect();
+  }, [data]);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -85,7 +94,7 @@ export default function GitHubGraph({ lang }) {
     return () => ctrl.abort();
   }, []);
 
-  const days = data?.contributions ?? [];
+  const days = useMemo(() => data?.contributions ?? [], [data]);
   const weeks = useMemo(() => toWeeks(days), [days]);
   const stats = useMemo(() => getStats(days), [days]);
 
@@ -96,18 +105,10 @@ export default function GitHubGraph({ lang }) {
     return tx.months[parseInt(first.date.slice(5, 7), 10) - 1];
   });
 
-  // Wave reveal of the cells + count-up of the stats once data arrives
+  // Count-up of the stats once data arrives
   useGSAP(
     () => {
       if (!data || reduced) return;
-      gsap.from('.ghg__cells .ghg__cell:not(.is-empty)', {
-        scale: 0,
-        opacity: 0,
-        duration: 0.5,
-        ease: 'back.out(2)',
-        stagger: { each: 0.0025, from: 'start' },
-        scrollTrigger: { trigger: root.current, start: 'top 80%', once: true },
-      });
       gsap.utils.toArray('.ghg__num').forEach((el) => {
         const end = parseInt(el.dataset.v, 10);
         const o = { v: 0 };
@@ -172,9 +173,9 @@ export default function GitHubGraph({ lang }) {
                     <span key={i}>{d}</span>
                   ))}
                 </div>
-                <div className="ghg__cells" onMouseLeave={() => setTip(null)}>
+                <div className={`ghg__cells${play ? ' is-play' : ''}`} onMouseLeave={() => setTip(null)}>
                   {weeks.map((w, wi) => (
-                    <div className="ghg__week" key={wi}>
+                    <div className="ghg__week" key={wi} style={{ '--w': wi }}>
                       {Array.from({ length: 7 }, (_, di) => {
                         const d = w[di];
                         if (!d) return <span key={di} className="ghg__cell is-empty" />;
