@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { ArrowDownRight, ArrowUpRight, Trophy } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './BrandIcons';
 import { gsap, SplitText, useGSAP, reduced, finePointer, scrollTo } from '../lib/motion';
@@ -15,8 +15,6 @@ const t = {
     ),
     badge: '2. místo + Nejlepší technické řešení · AT&T Hackathon Junior 2026',
     cta: 'Zobrazit projekty',
-    status: 'Volný pro nové projekty',
-    place: 'Zlín',
   },
   en: {
     role: 'Full-stack web developer',
@@ -27,22 +25,12 @@ const t = {
     ),
     badge: '2nd Place + Best Technical Solution · AT&T Hackathon Junior 2026',
     cta: 'View selected work',
-    status: 'Available for new projects',
-    place: 'Zlín, CZ',
   },
 };
 
 export default function Hero({ lang, ready }) {
   const root = useRef(null);
   const tx = t[lang];
-  const [time, setTime] = useState('');
-
-  useEffect(() => {
-    const fmt = () => setTime(new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Prague' }));
-    fmt();
-    const id = setInterval(fmt, 15000);
-    return () => clearInterval(id);
-  }, []);
 
   useGSAP(
     () => {
@@ -90,10 +78,6 @@ export default function Hero({ lang, ready }) {
         <div className="hero__top">
           <span className="mono" data-in>
             {tx.role}
-          </span>
-          <span className="mono hero__status" data-in>
-            <i className="pulse" /> {tx.status}
-            <span className="hero__clock">{tx.place} · {time}</span>
           </span>
         </div>
 

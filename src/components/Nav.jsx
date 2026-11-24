@@ -43,11 +43,10 @@ export default function Nav({ lang, setLang, ready, onNavigate }) {
     () => {
       if (!ready) return;
       gsap.from(ref.current, { y: -30, autoAlpha: 0, duration: 1, ease: 'expo.out', delay: 0.5, clearProps: 'transform' });
-      // Hide on scroll down, show on scroll up
+      // Solid background once the page is scrolled
       ScrollTrigger.create({
         start: 'top -120',
         onUpdate: (self) => {
-          ref.current?.classList.toggle('nav--hidden', self.direction === 1 && self.scroll() > 400);
           ref.current?.classList.toggle('nav--solid', self.scroll() > 40);
         },
       });
